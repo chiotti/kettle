@@ -24,6 +24,15 @@ class UpdraftPlus_Options {
 		return 'options-general.php';
 	}
 
+	/**
+	 * Extracts the last logged message from updraftplus last process
+	 *
+	 * @return Mixed - Value set for the option or the default message
+	 */
+	public static function get_updraft_lastmessage() {
+		return UpdraftPlus_Options::get_updraft_option('updraft_lastmessage', __('(Nothing has been logged yet)', 'updraftplus'));
+	}
+
 	public static function get_updraft_option($option, $default = null) {
 		$ret = get_option($option, $default);
 		return apply_filters('updraftplus_get_option', $ret, $option, $default);
@@ -50,10 +59,12 @@ class UpdraftPlus_Options {
 		add_submenu_page('options-general.php', 'UpdraftPlus', __('UpdraftPlus Backups', 'updraftplus'), apply_filters('option_page_capability_updraft-options-group', 'manage_options'), "updraftplus", array($updraftplus_admin, "settings_output"));
 	}
 
-	public static function options_form_begin($settings_fields = 'updraft-options-group', $allow_autocomplete = true, $get_params = array()) {
+	public static function options_form_begin($settings_fields = 'updraft-options-group', $allow_autocomplete = true, $get_params = array(), $classes = '') {
 		global $pagenow;
 		echo '<form method="post"';
-
+		
+		if ('' != $classes) echo ' class="'.$classes.'"';
+		
 		$page = '';
 		if ('options-general.php' == $pagenow) $page = "options.php";
 
@@ -139,6 +150,7 @@ class UpdraftPlus_Options {
 
 		register_setting('updraft-options-group', 'updraft_report_warningsonly', array($updraftplus_admin, 'return_array'));
 		register_setting('updraft-options-group', 'updraft_report_wholebackup', array($updraftplus_admin, 'return_array'));
+		register_setting('updraft-options-group', 'updraft_report_dbbackup', array($updraftplus_admin, 'return_array'));
 
 		register_setting('updraft-options-group', 'updraft_autobackup_default', 'absint');
 		register_setting('updraft-options-group', 'updraft_delete_local', 'absint');

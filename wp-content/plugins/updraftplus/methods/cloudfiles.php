@@ -475,9 +475,8 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk extends UpdraftPlus_BackupModul
 			<tr class="updraftplusmethod cloudfiles">
 				<th><?php _e('Rackspace Storage Region','updraftplus');?>:</th>
 				<td>
-					
 				</td>
-			</tr> 
+			</tr>
 			*/
 		$template_str .= '
 		<tr class="'.$classes.'">
@@ -509,6 +508,11 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk extends UpdraftPlus_BackupModul
 		return $opts;
 	}
 	
+	/**
+	 * Perform a test of user-supplied credentials, and echo the result
+	 *
+	 * @param Array $posted_settings - settings to test
+	 */
 	public function credentials_test($posted_settings) {
 
 		if (empty($posted_settings['apikey'])) {
@@ -521,7 +525,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk extends UpdraftPlus_BackupModul
 			return;
 		}
 
-		$key = stripslashes($posted_settings['apikey']);
+		$key = $posted_settings['apikey'];
 		$user = $posted_settings['user'];
 		$path = $posted_settings['path'];
 		$authurl = $posted_settings['authurl'];
