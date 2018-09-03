@@ -3,7 +3,7 @@
 Plugin Name: WP Fastest Cache
 Plugin URI: http://wordpress.org/plugins/wp-fastest-cache/
 Description: The simplest and fastest WP Cache system
-Version: 0.8.8.0
+Version: 0.8.8.4
 Author: Emre Vona
 Author URI: http://tr.linkedin.com/in/emrevona
 Text Domain: wp-fastest-cache
@@ -164,6 +164,37 @@ GNU General Public License for more details.
 					// /?action=wpfastestcache&type=preload
 					
 					add_action('init', array($this, "create_preload_cache"), 11);
+				}
+
+				if(isset($_GET) && isset($_GET["type"]) && preg_match("/^clearcache(andminified)*$/i", $_GET["type"])){
+					// /?action=wpfastestcache&type=clearcache&token=123
+					// /?action=wpfastestcache&type=clearcacheandminified&token=123
+
+					if(isset($_GET["token"]) && $_GET["token"]){
+						if(defined("WPFC_CLEAR_CACHE_URL_TOKEN") && WPFC_CLEAR_CACHE_URL_TOKEN){
+							if(WPFC_CLEAR_CACHE_URL_TOKEN == $_GET["token"]){
+								if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
+									include_once $this->get_premium_path("mobile-cache.php");
+								}
+
+								if($_GET["type"] == "clearcache"){
+									$this->deleteCache();
+								}
+
+								if($_GET["type"] == "clearcacheandminified"){
+									$this->deleteCache(true);
+								}
+
+								die("Done");
+							}else{
+								die("Wrong token");
+							}
+						}else{
+							die("WPFC_CLEAR_CACHE_URL_TOKEN must be defined");
+						}
+					}else{
+						die("Security token must be set.");
+					}
 				}
 			}else{
 				$this->setCustomInterval();
@@ -916,8 +947,13 @@ GNU General Public License for more details.
 				}
 			}
 
-			@unlink($this->getWpContentDir()."/cache/all/index.html");
-			@unlink($this->getWpContentDir()."/cache/wpfc-mobile-cache/index.html");
+			if(file_exists($this->getWpContentDir()."/cache/all/index.html")){
+				@unlink($this->getWpContentDir()."/cache/all/index.html");
+			}
+
+			if(file_exists($this->getWpContentDir()."/cache/wpfc-mobile-cache/index.html")){
+				@unlink($this->getWpContentDir()."/cache/wpfc-mobile-cache/index.html");
+			}
 
 			//to clear pagination of homepage cache
 			$this->rm_folder_recursively($this->getWpContentDir()."/cache/all/page");
@@ -1104,7 +1140,13 @@ GNU General Public License for more details.
 				$this->options = $this->getOptions();
 
 				$pre_load = json_decode($data);
-				$number = $pre_load->number;
+
+				if(defined("WPFC_PRELOAD_NUMBER") && WPFC_PRELOAD_NUMBER){
+					$number = WPFC_PRELOAD_NUMBER;
+				}else{
+					$number = $pre_load->number;
+				}
+
 				
 				$urls_limit = isset($this->options->wpFastestCachePreload_number) ? $this->options->wpFastestCachePreload_number : 4; // must be even
 				$urls = array();
@@ -1534,27 +1576,31 @@ GNU General Public License for more details.
 		}
 
 		public function rm_folder_recursively($dir, $i = 1) {
-			$files = @scandir($dir);
-		    foreach((array)$files as $file) {
-		    	if($i > 50 && !preg_match("/wp-fastest-cache-premium/i", $dir)){
-		    		return true;
-		    	}else{
-		    		$i++;
-		    	}
-		        if ('.' === $file || '..' === $file) continue;
-		        if (is_dir("$dir/$file")){
-		        	$this->rm_folder_recursively("$dir/$file", $i);
-		        }else{
-		        	if(file_exists("$dir/$file")){
-		        		@unlink("$dir/$file");
-		        	}
-		        }
-		    }
-		    
-		    $files_tmp = @scandir($dir);
-		    
-		    if(is_dir($dir) && !isset($files_tmp[2])){
-		    	@rmdir($dir);
+			if(is_dir($dir)){
+				$files = @scandir($dir);
+			    foreach((array)$files as $file) {
+			    	if($i > 50 && !preg_match("/wp-fastest-cache-premium/i", $dir)){
+			    		return true;
+			    	}else{
+			    		$i++;
+			    	}
+			        if ('.' === $file || '..' === $file) continue;
+			        if (is_dir("$dir/$file")){
+			        	$this->rm_folder_recursively("$dir/$file", $i);
+			        }else{
+			        	if(file_exists("$dir/$file")){
+			        		@unlink("$dir/$file");
+			        	}
+			        }
+			    }
+			}
+	
+		    if(is_dir($dir)){
+			    $files_tmp = @scandir($dir);
+			    
+			    if(!isset($files_tmp[2])){
+			    	@rmdir($dir);
+			    }
 		    }
 
 		    return true;
@@ -1748,6 +1794,10 @@ GNU General Public License for more details.
 		public function cdn_replace_urls($matches){
 			if(count($this->cdn) > 0){
 				foreach ($this->cdn as $key => $cdn) {
+					if($cdn->id == "cloudflare"){
+						continue;
+					}
+
 					if(preg_match("/manifest\.json\.php/i", $matches[0])){
 						return $matches[0];
 					}
@@ -1770,8 +1820,16 @@ GNU General Public License for more details.
 
 					$cdn->file_types = str_replace(",", "|", $cdn->file_types);
 
-					if(!preg_match("/\.(".$cdn->file_types.")/i", $matches[0])){
-						continue;
+					if(preg_match("/\.(".$cdn->file_types.")[\"\'\?\)\s]/i", $matches[0])){
+						//nothing
+					}else{
+						if(preg_match("/js/", $cdn->file_types)){
+							if(!preg_match("/\/revslider\/public\/assets\/js/", $matches[0])){
+								continue;
+							}
+						}else{
+							continue;
+						}
 					}
 
 					if($cdn->keywords){
