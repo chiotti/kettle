@@ -209,8 +209,8 @@ class UpdraftPlus_Addons_RemoteStorage_remotesend extends UpdraftPlus_RemoteStor
 						$log_msg = "Returned WP_Error: code=".$put_chunk->get_error_code();
 						$log_msg .= " - reducing chunk size to: ".$new_chunk_size." and then scheduling resumption/aborting";
 						$updraftplus->log($log_msg);
-						$updraftplus->reschedule(50);
-						$updraftplus->record_still_alive();
+						UpdraftPlus_Job_Scheduler::reschedule(50);
+						UpdraftPlus_Job_Scheduler::record_still_alive();
 						die;
 						
 					}
@@ -284,7 +284,7 @@ class UpdraftPlus_Addons_RemoteStorage_remotesend extends UpdraftPlus_RemoteStor
 
 		$this->set_storage($storage);
 		
-		$response = $this->send_message('upload_complete', array(), 30);
+		$response = $this->send_message('upload_complete', array('job_id' => $updraftplus->nonce), 30);
 
 		if (is_wp_error($response)) {
 			throw new Exception($response->get_error_message().' ('.$response->get_error_code().')');
@@ -402,9 +402,9 @@ class UpdraftPlus_Addons_RemoteStorage_remotesend extends UpdraftPlus_RemoteStor
 		$clone_key = json_decode($response['data']['key'], true);
 
 		if (empty($clone_url) || empty($clone_key)) {
-			$updraftplus->log("UpdraftClone migration information not found: will poll again in 60");
-			$updraftplus->reschedule(60);
-			$updraftplus->record_still_alive();
+			$updraftplus->log("UpdraftClone migration information not found (probably still provisioning): will poll again in 60");
+			UpdraftPlus_Job_Scheduler::reschedule(60);
+			UpdraftPlus_Job_Scheduler::record_still_alive();
 			die;
 		}
 

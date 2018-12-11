@@ -10,9 +10,6 @@
 		public function __construct(){
 			$this->options = $this->getOptions();
 			
-			//to call like that because on WP Multisite current_user_can() cannot get the user
-			add_action('admin_init', array($this, "optionsPageRequest"));
-
 			$this->setCronJobSettings();
 			$this->addButtonOnEditor();
 			add_action('admin_enqueue_scripts', array($this, 'addJavaScript'));
@@ -116,7 +113,7 @@
 					include_once ABSPATH."wp-includes/pluggable.php";
 
 					if(is_multisite()){
-						$this->systemMessage = array("The plugin does not work with Multisite", "error");
+						$this->notify(array("The plugin does not work with Multisite", "error"));
 						return 0;
 					}
 
@@ -214,6 +211,11 @@
 
 		public function saveOption(){
 			unset($_POST["wpFastestCachePage"]);
+			unset($_POST["option_page"]);
+			unset($_POST["action"]);
+			unset($_POST["_wpnonce"]);
+			unset($_POST["_wp_http_referer"]);
+			
 			$data = json_encode($_POST);
 			//for optionsPage() $_POST is array and json_decode() converts to stdObj
 			$this->options = json_decode($data);
@@ -243,6 +245,8 @@
 					}
 				}
 			}
+
+			$this->notify($this->systemMessage);
 		}
 
 		public function checkCachePathWriteable(){
@@ -298,7 +302,7 @@
 			// }
 
 			if(!file_exists($path.".htaccess")){
-				if(isset($_SERVER["SERVER_SOFTWARE"]) && $_SERVER["SERVER_SOFTWARE"] && preg_match("/nginx/i", $_SERVER["SERVER_SOFTWARE"])){
+				if(isset($_SERVER["SERVER_SOFTWARE"]) && $_SERVER["SERVER_SOFTWARE"] && (preg_match("/iis/i", $_SERVER["SERVER_SOFTWARE"]) || preg_match("/nginx/i", $_SERVER["SERVER_SOFTWARE"]))){
 					//
 				}else{
 					return array("<label>.htaccess was not found</label> <a target='_blank' href='http://www.wpfastestcache.com/warnings/htaccess-was-not-found/'>Read More</a>", "error");
@@ -374,10 +378,10 @@
 
 				file_put_contents($path.".htaccess", $htaccess);
 			}else{
-				return array("Options have been saved", "success");
+				return array("Options have been saved", "updated");
 				//return array(".htaccess is not writable", "error");
 			}
-			return array("Options have been saved", "success");
+			return array("Options have been saved", "updated");
 
 		}
 
@@ -619,14 +623,6 @@
 				$ifIsNotSecure = "RewriteCond %{HTTPS} !=on";
 			}
 
-			// WeePie Cookie Allow: to serve cache if the cookie named wpca_consent is set
-			if($this->isPluginActive('wp-cookie-allow/wp-cookie-allow.php')){
-				$consent_cookie = "RewriteCond %{HTTP:Cookie} wpca_consent=1"."\n";
-				$consent_cookie .= "RewriteCond %{HTTP:Cookie} !wpca_cc [OR]"."\n";
-				$consent_cookie .= "RewriteCond %{HTTP:Cookie} wpca_consent=1"."\n";
-				$consent_cookie .= "RewriteCond %{HTTP:Cookie} wpca_cc=functional,analytical,social-media,advertising,other"."\n";
-			}
-
 			if($this->is_trailing_slash()){
 				$trailing_slash_rule = "RewriteCond %{REQUEST_URI} \/$"."\n";
 			}else{
@@ -816,8 +812,6 @@
 		}
 
 		public function optionsPage(){
-			$this->systemMessage = count($this->systemMessage) > 0 ? $this->systemMessage : $this->getSystemMessage();
-
 			$wpFastestCacheCombineCss = isset($this->options->wpFastestCacheCombineCss) ? 'checked="checked"' : "";
 			$wpFastestCacheGoogleFonts = isset($this->options->wpFastestCacheGoogleFonts) ? 'checked="checked"' : "";
 			$wpFastestCacheGzip = isset($this->options->wpFastestCacheGzip) ? 'checked="checked"' : "";
@@ -862,10 +856,11 @@
 			$wpFastestCachePreload_homepage = isset($this->options->wpFastestCachePreload_homepage) ? 'checked="checked"' : "";
 			$wpFastestCachePreload_post = isset($this->options->wpFastestCachePreload_post) ? 'checked="checked"' : "";
 			$wpFastestCachePreload_category = isset($this->options->wpFastestCachePreload_category) ? 'checked="checked"' : "";
+			$wpFastestCachePreload_customposttypes = isset($this->options->wpFastestCachePreload_customposttypes) ? 'checked="checked"' : "";
 			$wpFastestCachePreload_page = isset($this->options->wpFastestCachePreload_page) ? 'checked="checked"' : "";
 			$wpFastestCachePreload_tag = isset($this->options->wpFastestCachePreload_tag) ? 'checked="checked"' : "";
 			$wpFastestCachePreload_attachment = isset($this->options->wpFastestCachePreload_attachment) ? 'checked="checked"' : "";
-			$wpFastestCachePreload_number = isset($this->options->wpFastestCachePreload_number) ? $this->options->wpFastestCachePreload_number : 4;
+			$wpFastestCachePreload_number = isset($this->options->wpFastestCachePreload_number) ? esc_attr($this->options->wpFastestCachePreload_number) : 4;
 			$wpFastestCachePreload_restart = isset($this->options->wpFastestCachePreload_restart) ? 'checked="checked"' : "";
 
 
@@ -881,14 +876,13 @@
 			<div class="wrap">
 
 				<h2>WP Fastest Cache Options</h2>
-				<?php if($this->systemMessage){ ?>
-					<div style="display:block !important;" class="updated <?php echo $this->systemMessage[1]."-wpfc"; ?>" id="message"><p><?php echo $this->systemMessage[0]; ?></p></div>
-				<?php } ?>
+				
+				<?php settings_errors("wpfc-notice"); ?>
+
 				<div class="tabGroup">
 					<?php
 						$tabs = array(array("id"=>"wpfc-options","title"=>"Settings"),
-									  array("id"=>"wpfc-deleteCache","title"=>"Delete Cache"),
-									  array("id"=>"wpfc-cacheTimeout","title"=>"Cache Timeout"));
+									  array("id"=>"wpfc-deleteCache","title"=>"Delete Cache"));
 						
 						array_push($tabs, array("id"=>"wpfc-imageOptimisation","title"=>"Image Optimization"));
 						array_push($tabs, array("id"=>"wpfc-premium","title"=>"Premium"));
@@ -915,7 +909,9 @@
 					?>
 				    <br>
 				    <div class="tab1" style="padding-left:10px;">
-						<form method="post" name="wp_manager">
+						<form method="post" name="wp_manager" action="options.php">
+							<?php settings_fields( 'wpfc-group' ); ?>
+
 							<input type="hidden" value="options" name="wpFastestCachePage">
 							<div class="questionCon">
 								<div class="question">Cache System</div>
@@ -1262,7 +1258,14 @@
 																"tr" => "Türkçe"
 															);
 											foreach($lang_array as $lang_array_key => $lang_array_value){
-												$option_selected = ($this->options->wpFastestCacheLanguage == $lang_array_key) ? 'selected="selected"' : "";
+												if(isset($this->options->wpFastestCacheLanguage) && $this->options->wpFastestCacheLanguage == $lang_array_key){
+													$option_selected = 'selected="selected"';
+												}else if($lang_array_key == "eng"){
+													$option_selected = 'selected="selected"';
+												}else{
+													$option_selected = "";
+												}
+
 												echo '<option '.$option_selected.' value="'.$lang_array_key.'">'.$lang_array_value.'</option>';
 											}
 										?>
@@ -1332,8 +1335,12 @@
 			   					<?php
 			   				}
 				   		?>
+
+				   		<div class="exclude_section_clear" style=" margin-left: 3%; width: 95%; margin-bottom: 20px; margin-top: 0;"><div></div></div>
+
 				   		<h2 id="delete-cache-h2" style="padding-left:20px;padding-bottom:10px;">Delete Cache</h2>
-				    	<form method="post" name="wp_manager" class="delete-line">
+				    	<form method="post" name="wp_manager" class="delete-line" action="options.php">
+							<?php settings_fields( 'wpfc-group' ); ?>
 				    		<input type="hidden" value="deleteCache" name="wpFastestCachePage">
 				    		<div class="questionCon qsubmit left">
 				    			<div class="submit"><input type="submit" value="Delete Cache" class="button-primary"></div>
@@ -1345,7 +1352,8 @@
 				    			</div>
 				    		</div>
 				   		</form>
-				   		<form method="post" name="wp_manager" class="delete-line" style="height: 120px;">
+				   		<form method="post" name="wp_manager" class="delete-line" style="height: 120px;" action="options.php">
+				   			<?php settings_fields( 'wpfc-group' ); ?>
 				    		<input type="hidden" value="deleteCssAndJsCache" name="wpFastestCachePage">
 				    		<div class="questionCon qsubmit left">
 				    			<div class="submit"><input type="submit" value="Delete Cache and Minified CSS/JS" class="button-primary"></div>
@@ -1366,9 +1374,11 @@
 					   				$logs->printLogs();
 				   				}
 				   		?>
-				    </div>
-				    <div class="tab3">
-				    	<h2 style="padding-bottom:10px;padding-left:20px;float:left;">Timeout Rules</h2>
+
+				   		<div class="exclude_section_clear" style=" margin-left: 3%; width: 95%; margin-bottom: 12px; margin-top: 0;"><div></div></div>
+
+
+				   		<h2 style="padding-bottom:10px;padding-left:20px;float:left;">Timeout Rules</h2>
 
 				    	<!-- samples start: clones -->
 				    	<div class="wpfc-timeout-rule-line" style="display:none;">
@@ -1399,9 +1409,20 @@
 		    			<!-- samples end -->
 
 				    	<div style="float:left;margin-top:-37px;padding-left:628px;">
-					    	<button type="button" class="wpfc-add-new-timeout-button wpfc-dialog-buttons" style="display: inline-block;padding: 4px 10px;">
-					    		<span>Add New Rule</span>
-					    	</button>
+				    		<?php
+				    			$disable_wp_cron = '';
+				    			if(defined("DISABLE_WP_CRON")){
+						    		if((is_bool(DISABLE_WP_CRON) && DISABLE_WP_CRON == true) || 
+						    			(is_string(DISABLE_WP_CRON) && preg_match("/^true$/i", DISABLE_WP_CRON))){
+						    			$disable_wp_cron = 'disable-wp-cron="true" ';
+
+						    			include(WPFC_MAIN_PATH."templates/disable_wp_cron.php");
+						    		}
+						    	}
+				    		?>
+				    		<button type="button" <?php echo $disable_wp_cron;?> class="wpfc-add-new-timeout-button wpfc-dialog-buttons" style="display: inline-block;padding: 4px 10px;">
+				    			<span>Add New Rule</span>
+							</button>
 				    	</div>
 
 				    	<div class="wpfc-timeout-list" style="display: block;width:98%;float:left;">
@@ -1435,7 +1456,7 @@
 
 								    					$tmp_array = array("schedule" => $event["schedule"],
 								    									   "prefix" => $tmp_std->prefix,
-								    									   "content" => $tmp_std->content);
+								    									   "content" => esc_attr($tmp_std->content));
 
 								    					if(isset($tmp_std->hour) && isset($tmp_std->minute)){
 								    						$tmp_array["hour"] = $tmp_std->hour;
@@ -1464,6 +1485,14 @@
 					    		} ?>
 				    	</script>
 				    </div>
+
+
+				    
+				    <div class="tab3" style="display:none;"> </div>
+
+
+
+
 				    <?php if(class_exists("WpFastestCacheImageOptimisation")){ ?>
 					    <div class="tab4">
 					    	<h2 style="padding-left:20px;padding-bottom:10px;">Optimize Image Tool</h2>
@@ -1605,7 +1634,7 @@
 				    			<div class="wpfc-premium-step-footer">
 				    				<?php
 				    					if(get_bloginfo('language') == "tr-TR"){
-				    						$premium_price = "100TL";
+				    						$premium_price = "150TL";
 				    					}else{
 					    					$premium_price = "$49.99";
 				    					}
@@ -1622,7 +1651,7 @@
 						    				<?php }else{ ?>
 							    				<form action="https://api.wpfastestcache.net/paypal/buypremium/" method="post">
 							    					<input type="hidden" name="ip" value="<?php echo $_SERVER["REMOTE_ADDR"]; ?>">
-							    					<input type="hidden" name="wpfclang" value="<?php echo isset($this->options->wpFastestCacheLanguage) ? $this->options->wpFastestCacheLanguage : ""; ?>">
+							    					<input type="hidden" name="wpfclang" value="<?php echo isset($this->options->wpFastestCacheLanguage) ? esc_attr($this->options->wpFastestCacheLanguage) : ""; ?>">
 							    					<input type="hidden" name="bloglang" value="<?php echo get_bloginfo('language'); ?>">
 							    					<input type="hidden" name="hostname" value="<?php echo str_replace(array("http://", "www."), "", $_SERVER["HTTP_HOST"]); ?>">
 								    				<button id="wpfc-buy-premium-button" type="submit" class="wpfc-btn primaryCta" style="width:200px;">
@@ -1841,10 +1870,10 @@
 				    		<div class="integration-page" style="display: block;width:98%;float:left;">
 
 				    			<div wpfc-cdn-name="maxcdn" class="int-item int-item-left">
-				    				<img src="<?php echo plugins_url("wp-fastest-cache/images/maxcdn.png"); ?>" />
+				    				<img style="border-radius:50px;" src="<?php echo plugins_url("wp-fastest-cache/images/stackpath.png"); ?>" />
 				    				<div class="app">
-				    					<div style="font-weight:bold;font-size:14px;">CDN by MaxCDN</div>
-				    					<p>Experts in Content Delivery Network Services</p>
+				    					<div style="font-weight:bold;font-size:14px;">CDN by StackPath</div>
+				    					<p>Secure and accelerate your web sites</p>
 				    				</div>
 				    				<div class="meta"></div>
 				    			</div>

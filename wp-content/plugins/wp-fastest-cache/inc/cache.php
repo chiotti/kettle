@@ -118,6 +118,10 @@
 						if(!preg_match("/\/$/", $_SERVER["REQUEST_URI"])){
 							if(defined('WPFC_CACHE_QUERYSTRING') && WPFC_CACHE_QUERYSTRING){
 							
+							}else if(preg_match("/gclid\=/i", $this->cacheFilePath)){
+								
+							}else if(preg_match("/fbclid\=/i", $this->cacheFilePath)){
+
 							}else if(preg_match("/utm_(source|medium|campaign|content|term)/i", $this->cacheFilePath)){
 
 							}else{
@@ -130,7 +134,7 @@
 				}
 			}
 			
-			$this->remove_google_analytics_paramters();
+			$this->remove_url_paramters();
 
 			// to decode path if it is not utf-8
 			if($this->cacheFilePath){
@@ -138,9 +142,25 @@
 			}
 		}
 
-		public function remove_google_analytics_paramters(){
+		public function remove_url_paramters(){
+			$action = false;
+
+			//to remove query strings for cache if Google Click Identifier are set
+			if(preg_match("/gclid\=/i", $this->cacheFilePath)){
+				$action = true;
+			}
+
+			//to remove query strings for cache if facebook parameters are set
+			if(preg_match("/fbclid\=/i", $this->cacheFilePath)){
+				$action = true;
+			}
+
 			//to remove query strings for cache if google analytics parameters are set
 			if(preg_match("/utm_(source|medium|campaign|content|term)/i", $this->cacheFilePath)){
+				$action = true;
+			}
+
+			if($action){
 				if(strlen($_SERVER["REQUEST_URI"]) > 1){ // for the sub-pages
 
 					$this->cacheFilePath = preg_replace("/\/*\?.+/", "", $this->cacheFilePath);
@@ -234,41 +254,6 @@
 						ob_start(array($this, "cdn_rewrite"));
 						
 						return 0;
-					}
-				}
-
-				// WeePie Cookie Allow: to create cache if the cookie named wpca_consent is set
-				if($this->isPluginActive('wp-cookie-allow/wp-cookie-allow.php')){
-					$wpca_settings_general = get_option('wpca_settings_general', array());
-
-					// check if settings are indexed by multilang locales
-					if($this->isPluginActive('sitepress-multilingual-cms/sitepress.php')){
-						$wpml_current_language = apply_filters('wpml_current_language', false);
-
-						if($wpml_current_language){
-							$wpml_languages = apply_filters('wpml_active_languages', NULL, 'orderby=id&order=desc');
-
-							if(isset($wpml_languages[$wpml_current_language]) && isset($wpml_languages[$wpml_current_language]['default_locale'])) {
-								$wpml_locale = $wpml_languages[$wpml_current_language]['default_locale'];
-
-								if(isset($wpca_settings_general[$wpml_locale])) {
-									$wpca_settings_general = $wpca_settings_general[$wpml_locale];
-									if(!is_array($wpca_settings_general)) {
-										$wpca_settings_general = array();
-									}
-								}
-							}
-						}
-					}
-
-					$wpca_enabled = (isset($wpca_settings_general['general_plugin_status']) && $wpca_settings_general['general_plugin_status'] == '1');
-
-					if($wpca_enabled){
-						if(!isset($_COOKIE["wpca_consent"]) || (isset($_COOKIE["wpca_consent"]) && $_COOKIE["wpca_consent"] == 0) || (isset($_COOKIE["wpca_cc"]) && $_COOKIE["wpca_cc"] != 'functional,analytical,social-media,advertising,other')){
-							ob_start(array($this, "cdn_rewrite"));
-							
-							return 0;
-						}
 					}
 				}
 
@@ -409,6 +394,8 @@
 					if($create_cache){
 						$this->startTime = microtime(true);
 
+
+						add_action('wp', array($this, "detect_current_page_type"));
 						add_action('get_footer', array($this, "detect_current_page_type"));
 						add_action('get_footer', array($this, "wp_print_scripts_action"));
 
@@ -482,7 +469,7 @@
 
 		public function exclude_page($buffer = false){
 			$preg_match_rule = "";
-			$request_url = trim($_SERVER["REQUEST_URI"], "/");
+			$request_url = urldecode(trim($_SERVER["REQUEST_URI"], "/"));
 
 			if($this->exclude_rules){
 
@@ -712,7 +699,7 @@
 						$execute_lazy_load = true;
 						
 						// to disable Lazy Load if the page is amp
-						if(preg_match("/<html[^\>]+amp[^\>]*>/i", $content)){
+						if($this->is_amp($content)){
 							$execute_lazy_load = false;
 						}
 						
@@ -744,11 +731,11 @@
 						$content = $wph->functions->content_urls_replacement($content, $wph->functions->get_replacement_list());
 					}
 
+					$content = $this->fix_pre_tag($content, $buffer);
+
 					if($this->cacheFilePath){
 						$this->createFolder($this->cacheFilePath, $content);
 					}
-					
-					$content = $this->fix_pre_tag($content, $buffer);
 
 					return $content."<!-- need to refresh to see cached version -->";
 				}
@@ -762,6 +749,15 @@
 
 				if(isset($pre_content[0]) && isset($pre_content[0][0])){
 					foreach ($pre_content[0] as $key => $value){
+						/*
+						location ~ / {
+						    set $path /path/$1/index.html;
+						}
+						*/
+						$pre_buffer[0][$key] = preg_replace('/\$(\d)/', '\\\$$1', $pre_buffer[0][$key]);
+
+						
+
 						$content = preg_replace("/".preg_quote($value, "/")."/", $pre_buffer[0][$key], $content);
 					}
 				}
@@ -772,7 +768,7 @@
 
 		public function cdn_rewrite($content){
 			if($this->cdn){
-				$content = preg_replace_callback("/(srcset|src|href|data-thumb|data-bg-url|data-lazyload|data-source-url|data-srcsmall|data-srclarge|data-srcfull|data-slide-img|data-lazy-original)\s{0,2}\=[\'\"]([^\'\"]+)[\'\"]/i", array($this, 'cdn_replace_urls'), $content);
+				$content = preg_replace_callback("/(srcset|src|href|data-cvpsrc|data-cvpset|data-thumb|data-bg-url|data-large_image|data-lazyload|data-source-url|data-srcsmall|data-srclarge|data-srcfull|data-slide-img|data-lazy-original)\s{0,2}\=[\'\"]([^\'\"]+)[\'\"]/i", array($this, 'cdn_replace_urls'), $content);
 
 				//url()
 				$content = preg_replace_callback("/(url)\(([^\)\>]+)\)/i", array($this, 'cdn_replace_urls'), $content);
@@ -787,6 +783,10 @@
 				// jsFileLocation:"//domain.com/wp-content/plugins/revslider/public/assets/js/"
 				// </script>
 				$content = preg_replace_callback("/(jsFileLocation)\s*\:[\"\']([^\"\']+)[\"\']/i", array($this, 'cdn_replace_urls'), $content);
+
+
+				// <form data-product_variations="[{&quot;src&quot;:&quot;//domain.com\/img.jpg&quot;}]">
+				$content = preg_replace_callback("/data-product_variations\=[\"\'][^\"\']+[\"\']/i", array($this, 'cdn_replace_urls'), $content);
 			}
 
 			return $content;
@@ -857,7 +857,7 @@
 			$name = "";
 			
 			foreach ($arr as $tag_key => $tag_value){
-				$tmp = preg_replace("/\?.*/", "", $tag_value["href"]); //to remove version number
+				$tmp = preg_replace("/(\.css|\.js)\?.*/", "$1", $tag_value["href"]); //to remove version number
 				$name = $name.$tmp;
 			}
 			
