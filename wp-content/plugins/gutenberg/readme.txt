@@ -1,8 +1,8 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
-Requires at least: 4.9.8
+Requires at least: 5.0.0
 Tested up to: 5.0
-Stable tag: 4.7.1
+Stable tag: 5.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,87 +79,116 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 == Changelog ==
 
-= Latest =
+Bug fixes in 5.1.1:
 
-### Performance
+- Fixes a Firefox regression causing block content to be deleted.
 
- - Improve page initialization time by optimizing the addHook function and the viewport state initialization.
- - Improve typing performance by splitting the state tree.
- - Optimize partial application of runSelector.
- - Move selector calls to the event handles to avoid useless component rerenders.
- - Render DropZone children only when dragging elements over it.
- - Initialize variables only when needed.
+Features:
 
-### Enhancements
+- Add a new Search block.
+- Add a new Calendar block.
+- Add a new Tag Cloud block.
 
- - Add error messages to the image block on upload failures.
- - Merge similar i18n strings.
- - Disable clipboard button in file block during upload.
- - Persist alignment when transforming a gallery to an image and vice-versa.
- - Copy enhancement to the embed block help text.
- - Improve the scrolling of the WordPress navigation menu.
+Enhancements:
 
-### Bug Fixes
+- Add micro-animations to the editor UI:
+  - Opening Popovers.
+  - Opening Sidebars.
+- Restore the block movers for the floated blocks.
+- Consistency in alignment options between archives and categories blocks.
+- Set the minimum size for form fields on mobile.
+- Disable the block navigation in the code editor mode.
+- Consistency for the modal styles.
+- Improve the FormToggle styling when used outside of WordPress context.
+- Use the block icons in the media placeholders.
+- Fix rounded corners for the block svg icons.
+- Improve the CSS specificity of the paragraph block styles.
+- Require an initial click on embed previews before being interactive.
+- Improve the disabled block switcher styles.
+- Do not split paragraph line breaks when transforming multiple paragraphs to a list.
+- Enhance the Quote block styling for different text alignments.
+- Remove the left padding from the Quote block when it’s centered.
+- A11y:
+  - Improve the permalink field label.
+  - Improve the region navigation styling.
+- Remove the 3 keywords limit for the block registration.
+- Add consistent background colors to the hovered menu items.
+- Allow the editor notices to push down the content.
+- Rename the default block styles.
 
- - Fix RTL support for the DatePicker component.
- - Change the header level in the BlockCompare component.
- - Show all the taxonomies in the sidebar.
- - Fix the latest posts date className.
- - Fix the “align center” button in Latest Posts block in the backend.
- - Fix block height when DropCap is used.
- - Fix converting caption shortcode with link.
- - Fix edge case in addQueryArgs function.
- - Don’t return the permalink if the CPT is not publicly viewable.
- - Fix error when saving non public CPTs.
- - Properly disable the Publish button when saving is disabled.
+Bug Fixes:
 
-### Various
+- Fix a number of formatting issues:
+  - Multiple formats.
+  - Flashing backgrounds when typing.
+  - Highlighted format buttons.
+  - Inline code with backticks.
+  - Spaces deleted after formats.
+  - Inline boundaries styling issues.
+  - Touch Bar format buttons.
+- Fix a number of list block writing flow issues:
+  - Allow line breaks in list items.
+  - Empty items not being removed.
+  - Backspace merging list items.
+  - Selecting formats at the beginning of list items.
+- Fix the color picker styling.
+- Set default values for the image dimensions inputs.
+- Fix sidebar panels spacing.
+- Fix wording of the nux tip nudging about the sidebar settings.
+- Fix the translator comments pot extraction.
+- Fix the plugins icons color overriding.
+- Fix conflicting notices styles when using editor styles.
+- Fix controls recursion in the redux-routine package.
+- Fix the generic embed block when using Giphy as provider.
+- Fix the i18n message used in the Gallery block edit button.
+- Fix the icon size of the block switcher menu.
+- Fix the loading state of the FlatTermSelector (tags selector).
+- Fix the embed placeholders styling.
+- Fix incorrectly triggered auto-saves for published posts.
+- Fix missing classname in the Latest comments block.
+- Fix HTML in shortcodes breaking block validation.
+- Fix JavaScript errors when typing quickly and creating undo levels.
+- Fix issue with mover colors in dark themes.
+- Fix internationalisation issue with permalink slugs.
 
- - Show a message in the browser’s console when in Quirks Mode.
- - Improvements to the @wordpress/scripts package: A new a check-engines command, a lint-style command and an update to lint-js.
+Various:
 
-### Documentation
+- Implement the inline format boundaries without relying on the DOM.
+- Introduce the Registry Selectors in the data module.
+- Introduce the Registry Controls in the data module.
+- Allow extending the latest posts block query by using get_posts.
+- Extend the range of allowed years in the DateTime component.
+- Allow null values for the DateTime component.
+- Do not render the FontSizePicker if no sizes defined.
+- Add className prop support to the UrlInput component.
+- Add inline image resizing UI.
 
- - Add a getting started with JavaScript tutorial.
- - Document the blocks’ setup states in the design guidelines.
- - Add content to Contributors index page.
- - Improve the components documentation:
-    - The MenuItem component.
-    - The RadioControl component.
-    - The ServerSideRender component.
- - Organise the documentation assets in a dedicated folder.
- - Clarify immutability of the block attributes.
- - Fix the metabox back compat code example.
- - Fix incorrect data module example.
- - Improve the plugin release docs.
- - Remove useless property from the colors code example.
- - Improve the contributing documentation.
- - Fix npm README links.
- - Update the design resources link.
- - Typo fixes.
+Chore:
 
-### Chore
+- Update lodash and deasync dependencies.
+- Use addQueryArgs consistently to generate WordPress links.
+- Remove merged PHP code (partial).
+- Disable CSS animations in e2e tests.
+- Add ESLint rules to:
+  - ensure the consistency of the import groups.
+  - protect against invalid sprintf use.
+- Add e2e tests for tags creation.
+- Add the feature flags setup.
+- Implement block editor styles using a filter.
 
- - Run e2e tests with popular plugins enabled.
- - Add new e2e tests:
-    - The permalink panel.
-    - The categories panel.
-    - Blocks with meta attributes.
- - Update node-sass to fix Node 11 support.
- - Move the dev dependencies to the root package.json.
- - Improve the Pull Request Template.
- - More logs to the CI jobs.
- - Code style fixes and expand the phpcs coverage.
- - Disable fragile e2e tests.
- - Avoid PHP notices when running the e2e tests in debug mode.
+Documentation:
 
-### Mobile
+- Add a new tutorial about the editor notices.
+- Add JavaScript build tools documentation.
+- Enhance the block’s edit/save documentation and code examples.
+- Add e2e test utils documentation.
 
- - Make a simple version of DefaultBlockAppender.
- - Stop using classname-to-style autotransform in react native.
- - Fix SVG styles.
- - Implement Enter press to add a default block.
- - Hide keyboard when non textual block is selected.
- - Fix undo/redo on new blocks.
- - Pass the blockType prop to RNAztecView.
- - Expose unregisterBlockType.
+Mobile:
+
+- Add bottom sheet settings for the image block.
+- Implement the media upload options sheet.
+- Implementing Clear All Settings button on Image Settings.
+- Avoid hard-coded font family styling for the image blocks.
+- Improve the post title component.
+- Fix the bottom sheet styling for RTL layouts.
+- Support the placeholder prop in the RichText component.

@@ -2,8 +2,8 @@
 Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snightingale, bcrodua
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
-Tested up to: 5.0
-Stable tag: 1.16.4
+Tested up to: 5.1
+Stable tag: 1.16.6
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -12,7 +12,7 @@ Backup and restoration made easy. Complete backups; manual or scheduled (backup 
 
 == Description ==
 
-<a href="https://updraftplus.com">UpdraftPlus</a> simplifies backups and restoration. It is the world's highest ranking and most popular scheduled backup plugin, with over a million currently-active installs. Backup your files and database backups into the cloud and restore with a single click!
+<a href="https://updraftplus.com">UpdraftPlus</a> simplifies backups and restoration. It is the world's highest ranking and most popular scheduled backup plugin, with over two million currently-active installs. Backup your files and database backups into the cloud and restore with a single click!
 
 Backup into the cloud directly to Dropbox, Google Drive, Amazon S3 (or compatible), UpdraftVault, Rackspace Cloud, FTP, DreamObjects, Openstack Swift, and email. The paid version also backs up to Microsoft OneDrive, Microsoft Azure, Google Cloud Storage, Backblaze B2, SFTP, SCP, and WebDAV.
 
@@ -166,7 +166,34 @@ Unfortunately not; since this is free software, there’s no warranty and no gua
 
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
-N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.4.x of the free version correspond to changes made in 2.16.4.x of the paid version.
+N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.6.x of the free version correspond to changes made in 2.16.6.x of the paid version.
+
+= 1.16.6 - 14/Feb/2019 = 
+
+* FEATURE: Added new S3 intelligent tiering class
+* FEATURE: Ability for user to buy Premium without leaving the plugin's settings pages
+* FEATURE: UpdraftPlus can now catch backups that don't complete because of errors that kill PHP and make sure a report is still sent about them
+* FIX: If a very large UpdraftVault upload took more than an hour, then the token could expire without being refreshed (fix in version 1.16.0 was incomplete)
+* PERFORMANCE: Modify a condition in the zip-batching algorithm so that greater acceleration in the zip-batching algorithm is allowed on setups allowing very long PHP run times on the initial (zero-eth) resumption
+* PERFORMANCE: UpdraftClone now sends larger chunks over the network, leading to faster sending of data
+* PERFORMANCE: Force UpdraftClone to use a 100MB split size for better performance (previously intended, but not always working)
+* TWEAK: Upon restoration, WP's cache directory will be emptied (by default it is not included in backups, so in theory this is a no-op, but the occasional case has been seen where it got populated during the restore process)
+* TWEAK: Add support for the new Europe (Stockholm) (eu-north-1) AWS region in Amazon S3
+* TWEAK: Advise the user if they changed the plugin's slug (and so won't be able to get updates) (paid versions)
+* TWEAK: Make use of wp_get_themes rather than relying solely to get_themes which is already deprecated
+* TWEAK: Regression: When a user aborted a fatal error occurred before all clean-up actions were complete
+* TWEAK: Refactor the remote storage logging code in Backblaze and Azure modules
+
+= 1.16.5 - 28/Jan/2019 =
+
+* FEATURE: If a restoration is interrupted (e.g. PHP timeout), then the "Continue" feature can now resume not just at the most recent zip file, but within the zip file at the point it had reached (https://updraftplus.com/auto-resuming-interrupted-restores-part-2/)
+* FEATURE: Added command in WP-CLI which gives a list of incremental backups restore points.
+* FIX: Regression: When a Dropbox upload failed to complete, UpdraftPlus would log this but fail to retry
+* FIX: Again update phpseclib to the latest version which should now fix the 'SSH2 Server Host Key Algorithm Mismatch' on all installs
+* TWEAK: Correct a wrong variable reference in an error message
+* TWEAK: Only add the JavaScript for the incremental schedule selection on the UD settings page
+* TWEAK: Replace incidental use of ipinfo.io now that it requires a paid API key
+* TWEAK: The print_delete_old_dirs_form method should have been public to allow painting if the user clicked through the previous message
 
 = 1.16.4 - 17/Jan/2019 =
 
@@ -751,5 +778,4 @@ Furthermore, reliance upon any non-English translation is at your own risk. Updr
 We recognise and thank the following for code and/or libraries used and/or modified under the terms of their open source licences; see: https://updraftplus.com/acknowledgements/
 
 == Upgrade Notice ==
-* 1.16.4: Fix a regression whereby rescanning remote storage did not correctly mark backups' origins, plus various other small tweaks and enhancements. A recommended update for all.
-
+* 1.16.6: Improved email reporting, performance improvements; plus various other small tweaks and enhancements. A recommended update for all.
