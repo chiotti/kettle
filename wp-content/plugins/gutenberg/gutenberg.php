@@ -3,7 +3,7 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
- * Version: 5.3.0
+ * Version: 5.8.0
  * Author: Gutenberg Team
  * Text Domain: gutenberg
  *
@@ -11,24 +11,11 @@
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '5.3.0' );
-define( 'GUTENBERG_GIT_COMMIT', '0563f6f8f9cc2912b67ed6d9ba4a3c910b70e71b' );
+define( 'GUTENBERG_VERSION', '5.8.0' );
+define( 'GUTENBERG_GIT_COMMIT', '803d5b14a86b719febd4001108d180a7d50f6660' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
-
-/**
- * Project.
- *
- * The main entry point for the Gutenberg editor. Renders the editor on the
- * wp-admin page for the plugin.
- *
- * @since 0.1.0
- * @deprecated 5.3.0
- */
-function the_gutenberg_project() {
-	_deprecated_function( __FUNCTION__, '5.3.0' );
-}
 
 /**
  * Gutenberg's Menu.
@@ -76,26 +63,11 @@ function gutenberg_menu() {
 		$submenu['gutenberg'][] = array(
 			__( 'Documentation', 'gutenberg' ),
 			'edit_posts',
-			'https://wordpress.org/gutenberg/handbook/',
+			'https://developer.wordpress.org/block-editor/',
 		);
 	}
 }
 add_action( 'admin_menu', 'gutenberg_menu' );
-
-/**
- * Checks whether we're currently loading a Gutenberg page
- *
- * @since 3.1.0
- * @deprecated 5.3.0 WP_Screen::is_block_editor
- *
- * @return boolean Whether Gutenberg is being loaded.
- */
-function is_gutenberg_page() {
-	_deprecated_function( __FUNCTION__, '5.3.0', 'WP_Screen::is_block_editor' );
-
-	require_once ABSPATH . 'wp-admin/includes/screen.php';
-	return get_current_screen()->is_block_editor();
-}
 
 /**
  * Display a version notice and deactivate the Gutenberg plugin.
@@ -145,20 +117,4 @@ function gutenberg_pre_init() {
 	}
 
 	require_once dirname( __FILE__ ) . '/lib/load.php';
-}
-
-/**
- * Initialize Gutenberg.
- *
- * Load API functions, register scripts and actions, etc.
- *
- * @deprecated 5.3.0
- *
- * @return bool Whether Gutenberg was initialized.
- */
-function gutenberg_init() {
-	_deprecated_function( __FUNCTION__, '5.3.0' );
-
-	require_once ABSPATH . 'wp-admin/includes/screen.php';
-	return get_current_screen()->is_block_editor();
 }
