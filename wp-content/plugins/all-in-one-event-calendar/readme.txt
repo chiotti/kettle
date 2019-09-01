@@ -2,8 +2,8 @@
 Contributors: uchu, calvinyeh, raquelleira, renatotbueno, domanb, elirenato, hubrik, vtowel, yani.iliev, nicolapeluchetti, jbutkus, lpawlik, bangelov
 Tags: calendar, event, ical, feed, ics, icalendar, sync, aggregator, google, venue, calendar widget, events widget
 Requires at least: 3.5
-Tested up to: 5.2
-Stable tag: 2.5.41
+Tested up to: 5.2.2
+Stable tag: 2.5.43
 Requires PHP: 5.4
 License: GNU General Public License, version 3 (GPL-3.0)
 
@@ -15,16 +15,16 @@ The [All-in-One Event Calendar](https://time.ly/) from [Timely](https://time.ly/
 
 Our events calendar is easy to manage. Combines clean visual design with a powerful set of features to create the most advanced website calendar system available for WordPress.
 
-= Get Add-ons =
+= Get the add-on =
 
-Download add-ons at [Time.ly](https://time.ly) to get more features, like:
+Download the add-on at [Time.ly](https://time.ly/wordpress-calendar-plugins-addons) to get more features, like:
 
-* [Extended Views](https://time.ly/downloads/extended-views/)
-* [Frontend Submission form](https://time.ly/downloads/front-end-event-form/)
-* [Super Widget](https://time.ly/downloads/superwidget/)
-* [Venues](https://time.ly/downloads/venues/)
-* [Twitter integration](https://time.ly/downloads/twitter/)
-* and [more](https://time.ly/wordpress-calendar-plugin/addons/)...
+* [Extended Views](https://time.ly/wordpress-calendar-plugins-addons)
+* [Frontend Submission form](https://time.ly/wordpress-calendar-plugins-addons)
+* [Ticketing](https://time.ly/wordpress-calendar-plugins-addons)
+* [Venues](https://time.ly/wordpress-calendar-plugins-addons)
+* [Twitter integration](https://time.ly/wordpress-calendar-plugins-addons)
+* and [more](https://time.ly/wordpress-calendar-plugins-addons)...
 
 = Import and Export Events =
 
@@ -83,7 +83,6 @@ You can help translate by going to [https://translate.time.ly](https://translate
 = Helpful Links =
 
 * [**Access our User Guide**](https://time.ly/document/user-guide/).
-* [**Raise feature ideas**](https://ideas.time.ly/).
 
 == Frequently Asked Questions ==
 
@@ -123,6 +122,12 @@ You can help translate by going to [https://translate.time.ly](https://translate
 **[ai1ec exact_date="5-10-2017"]**
 
 == Changelog ==
+
+= Version 2.5.43 =
+* Fixed: Addon menu was not being displaying correctly.
+
+= Version 2.5.42 =
+* Removed "Samples" from menu.
 
 = Version 2.5.41 =
 * Google reCAPTCHA script URL has been updated.

@@ -4,7 +4,7 @@ Donate link: http://profiles.wordpress.org/emrevona/
 Tags: cache, caching, performance, wp-cache, total cache, super cache, cdn
 Requires at least: 3.3
 Tested up to: 5.2
-Stable tag: 0.8.9.5
+Stable tag: 0.8.9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,21 @@ Wpfc supports Wordpress Multisite [<a target="_blank" href="https://www.wpfastes
 18. Database Cleanup
 
 == Changelog ==
+
+= 0.8.9.7 =
+* to create cache for xml sources
+* to create cache for json sources [<a target="_blank" href="https://www.wpfastestcache.com/features/how-to-cache-json/">Details</a>]
+* to clear cache after Maintenance Mode activation/deactivation on Elementor plugin
+* refactoring of clearing cache hook system
+* refactoring of cache time-out time list
+* to disable cache when "The site is experiencing technical difficulties." error occurs
+
+= 0.8.9.6 =
+* to clear post's cache which contains query string if WPFC_CACHE_QUERYSTRING is defined
+* refactoring of excluding system
+* refactoring of getWpContentDir()
+* to fix the homepage cache problem when WPML with different url is used
+* to prevent directory traversal attack (discoverd by Imre Rad)
 
 = 0.8.9.5 =
 * to check the page is 404 or not with http_response_code() if is_404() does not work

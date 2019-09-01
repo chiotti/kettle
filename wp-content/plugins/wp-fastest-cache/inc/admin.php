@@ -487,10 +487,18 @@
 			if($webp){
 				$basename = "$1.webp";
 
-				// this part for sub-directory installation
-				// site_url() and home_url() must be the same
+				/* 
+					This part for sub-directory installation
+					WordPress Address (URL): site_url() 
+					Site Address (URL): home_url()
+				*/
 				if(preg_match("/https?\:\/\/[^\/]+\/(.+)/", site_url(), $siteurl_base_name)){
 					if(preg_match("/https?\:\/\/[^\/]+\/(.+)/", home_url(), $homeurl_base_name)){
+						/*
+							site_url() return http://example.com/sub-directory
+							home_url() returns http://example.com/sub-directory
+						*/
+
 						$homeurl_base_name[1] = trim($homeurl_base_name[1], "/");
 						$siteurl_base_name[1] = trim($siteurl_base_name[1], "/");
 
@@ -499,6 +507,13 @@
 								$basename = $homeurl_base_name[1]."/".$basename;
 							}
 						}
+					}else{
+						/*
+							site_url() return http://example.com/sub-directory
+							home_url() returns http://example.com/
+						*/
+						$siteurl_base_name[1] = trim($siteurl_base_name[1], "/");
+						$basename = $siteurl_base_name[1]."/".$basename;
 					}
 				}
 
@@ -683,6 +698,15 @@
 			$trailing_slash_rule = "";
 			$consent_cookie = "";
 
+			$language_negotiation_type = apply_filters('wpml_setting', false, 'language_negotiation_type');
+			if(($language_negotiation_type == 2) && $this->isPluginActive('sitepress-multilingual-cms/sitepress.php')){
+				$cache_path = '/cache/all/%{HTTP_HOST}/';
+				$disable_condition = true;
+			}else{
+				$cache_path = '/cache/all/';
+				$disable_condition = false;
+			}
+
 			if(isset($_POST["wpFastestCacheMobile"]) && $_POST["wpFastestCacheMobile"] == "on"){
 				$mobile = "RewriteCond %{HTTP_USER_AGENT} !^.*(".$this->getMobileUserAgents().").*$ [NC]"."\n";
 			}
@@ -725,17 +749,17 @@
 			
 
 			if(ABSPATH == "//"){
-				$data = $data."RewriteCond %{DOCUMENT_ROOT}/".WPFC_WP_CONTENT_BASENAME."/cache/all/$1/index.html -f"."\n";
+				$data = $data."RewriteCond %{DOCUMENT_ROOT}/".WPFC_WP_CONTENT_BASENAME.$cache_path."$1/index.html -f"."\n";
 			}else{
 				//WARNING: If you change the following lines, you need to update webp as well
-				$data = $data."RewriteCond %{DOCUMENT_ROOT}/".WPFC_WP_CONTENT_BASENAME."/cache/all/$1/index.html -f [or]"."\n";
+				$data = $data."RewriteCond %{DOCUMENT_ROOT}/".WPFC_WP_CONTENT_BASENAME.$cache_path."$1/index.html -f [or]"."\n";
 				// to escape spaces
 				$tmp_WPFC_WP_CONTENT_DIR = str_replace(" ", "\ ", WPFC_WP_CONTENT_DIR);
 
-				$data = $data."RewriteCond ".$tmp_WPFC_WP_CONTENT_DIR."/cache/all/".$this->getRewriteBase(true)."$1/index.html -f"."\n";
+				$data = $data."RewriteCond ".$tmp_WPFC_WP_CONTENT_DIR.$cache_path.$this->getRewriteBase(true)."$1/index.html -f"."\n";
 			}
 
-			$data = $data.'RewriteRule ^(.*) "/'.$this->getRewriteBase().WPFC_WP_CONTENT_BASENAME.'/cache/all/'.$this->getRewriteBase(true).'$1/index.html" [L]'."\n";
+			$data = $data.'RewriteRule ^(.*) "/'.$this->getRewriteBase().WPFC_WP_CONTENT_BASENAME.$cache_path.$this->getRewriteBase(true).'$1/index.html" [L]'."\n";
 			
 			//RewriteRule !/  "/wp-content/cache/all/index.html" [L]
 

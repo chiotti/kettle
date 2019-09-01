@@ -2,18 +2,18 @@
 # This file is distributed under the same license as the All-in-One Event Calendar by Time.ly package.
 msgid ""
 msgstr ""
-"Project-Id-Version: All-in-One Event Calendar by Time.ly 2.5.41\n"
+"Project-Id-Version: All-in-One Event Calendar by Time.ly 2.5.43\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/all-in-one-event-calendar\n"
-"POT-Creation-Date: 2019-05-23 19:08:56+00:00\n"
+"POT-Creation-Date: 2019-08-14 14:31:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-05-23 19:08+0000\n"
+"PO-Revision-Date: 2019-08-14 14:31+0000\n"
 "Last-Translator: Timely <support@time.ly>\n"
 "Language-Team:\n"
 
 #: app/controller/extension-license.php:53 app/view/admin/add-ons.php:26
-#: app/view/admin/add-ons.php:27 app/view/admin/settings.php:156
+#: app/view/admin/add-ons.php:27
 msgid "Add-ons"
 msgstr "Add-ons"
 
@@ -802,29 +802,11 @@ msgstr ""
 "Frontend Extension</a> for the <strong>frontend Post Your Event form</"
 "strong>."
 
-#: app/model/settings.php:870
-msgid ""
-"<div class=\"ai1ec-twitterinfo-wrap\"><b>Twitter</b><br>This feature allows "
-"your events to be automatically tweeted before they happen. Great way to add "
-"regular content to your twitter roll and keep your audience informed of all "
-"your great events. This feature is not yet enabled in your product. Please "
-"purchase it as a standalone for a low annual subscription or inside the Core"
-"+ bundle. <a target=\"_blank\" href=\"https://time.ly/wordpress-calendar-"
-"plugin/addons/\">Click here.</a></div>"
-msgstr ""
-"<div class=\"ai1ec-twitterinfo-wrap\"><b>Twitter</b><br>This feature allows "
-"your events to be automatically tweeted before they happen. Great way to add "
-"regular content to your twitter roll and keep your audience informed of all "
-"your great events. This feature is not yet enabled in your product. Please "
-"purchase it as a standalone for a low annual subscription or inside the Core"
-"+ bundle. <a target=\"_blank\" href=\"https://time.ly/wordpress-calendar-"
-"plugin/addons/\">Click here.</a></div>"
-
-#: app/model/settings.php:891
+#: app/model/settings.php:878
 msgid "Move calendar into this DOM element"
 msgstr "Move calendar into this DOM element"
 
-#: app/model/settings.php:893
+#: app/model/settings.php:880
 msgid ""
 "Optional. Use this JavaScript-based shortcut to place the\n"
 "                        calendar a DOM element other than the usual page "
@@ -854,7 +836,7 @@ msgstr ""
 "replaced\n"
 "                        by the calendar."
 
-#: app/model/settings.php:912
+#: app/model/settings.php:899
 msgid ""
 "<strong>Skip <tt>in_the_loop()</tt> check </strong> that protects against "
 "multiple calendar output"
@@ -862,7 +844,7 @@ msgstr ""
 "<strong>Skip <tt>in_the_loop()</tt> check </strong> that protects against "
 "multiple calendar output"
 
-#: app/model/settings.php:915
+#: app/model/settings.php:902
 msgid ""
 "Try enabling this option if your calendar does not appear on the calendar "
 "page. It is needed for compatibility with a small number of themes that call "
@@ -872,11 +854,11 @@ msgstr ""
 "page. It is needed for compatibility with a small number of themes that call "
 "<tt>the_content()</tt> from outside of The Loop. Leave disabled otherwise."
 
-#: app/model/settings.php:927
+#: app/model/settings.php:914
 msgid "Disable <strong>gzip</strong> compression."
 msgstr "Disable <strong>gzip</strong> compression."
 
-#: app/model/settings.php:930
+#: app/model/settings.php:917
 msgid ""
 "Use this option if calendar is unresponsive. <a target=\"_blank\" href="
 "\"https://time.ly/document/user-guide/troubleshooting/disable-gzip-"
@@ -888,11 +870,11 @@ msgstr ""
 "compression/\">Read more</a> about the issue. (From version 2.1 onwards, "
 "gzip is disabled by default for maximum compatibility.)"
 
-#: app/model/settings.php:942
+#: app/model/settings.php:929
 msgid "Use frontend rendering."
 msgstr "Use frontend rendering."
 
-#: app/model/settings.php:945
+#: app/model/settings.php:932
 msgid ""
 "Renders calendar views on the client rather than the server; can improve "
 "performance."
@@ -900,15 +882,15 @@ msgstr ""
 "Renders calendar views on the client rather than the server; can improve "
 "performance."
 
-#: app/model/settings.php:957
+#: app/model/settings.php:944
 msgid "Use advanced JS cache."
 msgstr "Use advanced JS cache."
 
-#: app/model/settings.php:960
+#: app/model/settings.php:947
 msgid "Cache dynamically generated JS files. Improves performance."
 msgstr "Cache dynamically generated JS files. Improves performance."
 
-#: app/model/settings.php:972
+#: app/model/settings.php:959
 msgid ""
 "<strong>Link CSS</strong> in <code>&lt;head&gt;</code> section when file "
 "cache is unavailable."
@@ -916,7 +898,7 @@ msgstr ""
 "<strong>Link CSS</strong> in <code>&lt;head&gt;</code> section when file "
 "cache is unavailable."
 
-#: app/model/settings.php:975
+#: app/model/settings.php:962
 msgid ""
 "Use this option if file cache is unavailable and you would prefer to serve "
 "CSS as a link rather than have it output inline."
@@ -924,11 +906,11 @@ msgstr ""
 "Use this option if file cache is unavailable and you would prefer to serve "
 "CSS as a link rather than have it output inline."
 
-#: app/model/settings.php:987
+#: app/model/settings.php:974
 msgid "Current <strong>robots.txt</strong> on this site"
 msgstr "Current <strong>robots.txt</strong> on this site"
 
-#: app/model/settings.php:991
+#: app/model/settings.php:978
 msgid ""
 "The Robot Exclusion Standard, also known as the Robots Exclusion Protocol "
 "or\n"
@@ -952,7 +934,7 @@ msgstr ""
 "                        You can change it manually by editing <code>robots."
 "txt</code> in your root WordPress directory."
 
-#: app/model/settings.php:1008
+#: app/model/settings.php:995
 msgid ""
 "<strong>Publicize, promote, and share my events</strong> marked as public on "
 "the Timely network. (<a href=\"%s\" target=\"_blank\">Learn more &#187;</a>)"
@@ -960,15 +942,15 @@ msgstr ""
 "<strong>Publicize, promote, and share my events</strong> marked as public on "
 "the Timely network. (<a href=\"%s\" target=\"_blank\">Learn more &#187;</a>)"
 
-#: app/model/settings.php:1031
+#: app/model/settings.php:1018
 msgid "Templates cache improves site performance"
 msgstr "Templates cache improves site performance"
 
-#: app/model/settings.php:1044
+#: app/model/settings.php:1031
 msgid "Display events in <strong>calendar time zone</strong>"
 msgstr "Display events in <strong>calendar time zone</strong>"
 
-#: app/model/settings.php:1047
+#: app/model/settings.php:1034
 msgid ""
 "If this box is checked events will appear in the calendar time zone with "
 "time zone information displayed on the event details page."
@@ -1263,10 +1245,6 @@ msgstr "<a href=\"%s\">Check for updates</a>"
 msgid "Organize Events"
 msgstr "Organize Events"
 
-#: app/view/admin/samples.php:26 app/view/admin/samples.php:27
-msgid "Samples"
-msgstr "Samples"
-
 #: app/view/admin/settings.php:30
 msgid "All-in-One Event Calendar: Settings"
 msgstr "All-in-One Event Calendar: Settings"
@@ -1318,15 +1296,11 @@ msgstr "External Services"
 msgid "Cache Report"
 msgstr "Cache Report"
 
-#: app/view/admin/settings.php:158
-msgid "Twitter"
-msgstr "Twitter"
-
-#: app/view/admin/settings.php:178
+#: app/view/admin/settings.php:172
 msgid "Please, Sign In to Timely Network."
 msgstr "Please, Sign In to Timely Network."
 
-#: app/view/admin/settings.php:189 app/view/admin/tickets.php:125
+#: app/view/admin/settings.php:183 app/view/admin/tickets.php:125
 #: public/admin/box_ask_customer_review.php:113
 #: public/admin/box_ask_customer_review.php:127
 #: public/admin/box_ask_customer_review.php:141
@@ -1336,47 +1310,47 @@ msgstr "Please, Sign In to Timely Network."
 msgid "This field is required."
 msgstr "This field is required."
 
-#: app/view/admin/settings.php:190 app/view/event/ticket.php:25
+#: app/view/admin/settings.php:184 app/view/event/ticket.php:25
 msgid "Register"
 msgstr "Register"
 
-#: app/view/admin/settings.php:191
+#: app/view/admin/settings.php:185
 msgid "Sign in"
 msgstr "Sign in"
 
-#: app/view/admin/settings.php:195
+#: app/view/admin/settings.php:189
 msgid "Sign out"
 msgstr "Sign out"
 
-#: app/view/admin/settings.php:197
+#: app/view/admin/settings.php:191
 msgid "Full Name:"
 msgstr "Full Name:"
 
-#: app/view/admin/settings.php:198
+#: app/view/admin/settings.php:192
 msgid "Hide form"
 msgstr "Hide form"
 
-#: app/view/admin/settings.php:199
+#: app/view/admin/settings.php:193
 msgid "Show form"
 msgstr "Show form"
 
-#: app/view/admin/settings.php:200
+#: app/view/admin/settings.php:194
 msgid "Email:"
 msgstr "Email:"
 
-#: app/view/admin/settings.php:201
+#: app/view/admin/settings.php:195
 msgid "Password:"
 msgstr "Password:"
 
-#: app/view/admin/settings.php:202
+#: app/view/admin/settings.php:196
 msgid "Confirm Password:"
 msgstr "Confirm Password:"
 
-#: app/view/admin/settings.php:203
+#: app/view/admin/settings.php:197
 msgid "Phone Number:"
 msgstr "Phone Number:"
 
-#: app/view/admin/settings.php:204
+#: app/view/admin/settings.php:198
 msgid ""
 "I confirm that I have read, understand and agree with the <a href=\"https://"
 "time.ly/tos\">terms of service</a>."
@@ -1384,7 +1358,7 @@ msgstr ""
 "I confirm that I have read, understand and agree with the <a href=\"https://"
 "time.ly/tos\">terms of service</a>."
 
-#: app/view/admin/settings.php:207
+#: app/view/admin/settings.php:201
 msgid ""
 "<h4>Attention Required:</h4>If you choose to sign-out of the API Timely "
 "Network this will close all the created tickets and remove user access to "
@@ -1396,68 +1370,68 @@ msgstr ""
 "them. In this case, on the event page, users will see the status “Event "
 "closed”."
 
-#: app/view/admin/settings.php:210 public/admin/box_repeat.php:116
+#: app/view/admin/settings.php:204 public/admin/box_repeat.php:116
 #: public/admin/plugins/ics/import_feed.php:127
 msgid "Cancel"
 msgstr "Cancel"
 
-#: app/view/admin/settings.php:211 app/view/admin/tickets.php:134
+#: app/view/admin/settings.php:205 app/view/admin/tickets.php:134
 msgid "Sign Out"
 msgstr "Sign Out"
 
-#: app/view/admin/settings.php:212
+#: app/view/admin/settings.php:206
 msgid "Sign Up"
 msgstr "Sign Up"
 
-#: app/view/admin/settings.php:213
+#: app/view/admin/settings.php:207
 msgid "Sign In"
 msgstr "Sign In"
 
-#: app/view/admin/settings.php:214
+#: app/view/admin/settings.php:208
 msgid "Calendar Type:"
 msgstr "Calendar Type:"
 
-#: app/view/admin/settings.php:216
+#: app/view/admin/settings.php:210
 msgid "Tourism"
 msgstr "Tourism"
 
-#: app/view/admin/settings.php:217
+#: app/view/admin/settings.php:211
 msgid "Media"
 msgstr "Media"
 
-#: app/view/admin/settings.php:218
+#: app/view/admin/settings.php:212
 msgid "Community Hubs"
 msgstr "Community Hubs"
 
-#: app/view/admin/settings.php:219
+#: app/view/admin/settings.php:213
 msgid "Education"
 msgstr "Education"
 
-#: app/view/admin/settings.php:220
+#: app/view/admin/settings.php:214
 msgid "Venue/Business"
 msgstr "Venue/Business"
 
-#: app/view/admin/settings.php:221
+#: app/view/admin/settings.php:215
 msgid "Artist/Performer"
 msgstr "Artist/Performer"
 
-#: app/view/admin/settings.php:222
+#: app/view/admin/settings.php:216
 msgid "Church/Spiritual"
 msgstr "Church/Spiritual"
 
-#: app/view/admin/settings.php:223
+#: app/view/admin/settings.php:217
 msgid "Association/Group"
 msgstr "Association/Group"
 
-#: app/view/admin/settings.php:224
+#: app/view/admin/settings.php:218
 msgid "Other"
 msgstr "Other"
 
-#: app/view/admin/settings.php:236
+#: app/view/admin/settings.php:230
 msgid "Save Settings"
 msgstr "Save Settings"
 
-#: app/view/admin/settings.php:243
+#: app/view/admin/settings.php:237
 msgid ""
 "If the form below is not working please follow <a href=\"%s\">this link</a>."
 msgstr ""
