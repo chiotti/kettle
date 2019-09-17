@@ -89,16 +89,34 @@ class AcceptStripePayments_Admin {
 	}
     }
 
-    function show_admin_notices() {
+function show_admin_notices() {
 	$msg_arr = get_transient( 'asp_admin_msg_arr' );
 	if ( ! empty( $msg_arr ) ) {
-	    delete_transient( 'asp_admin_msg_arr' );
-	    $tpl = '<div class="notice notice-%1$s%3$s"><p>%2$s</p></div>';
-	    foreach ( $msg_arr as $msg ) {
-		echo sprintf( $tpl, $msg[ 'type' ], $msg[ 'text' ], $msg[ 'dism' ] === true ? ' is-dismissible' : ''  );
-	    }
+		delete_transient( 'asp_admin_msg_arr' );
+		$tpl = '<div class="notice notice-%1$s%3$s"><p>%2$s</p></div>';
+		foreach ( $msg_arr as $msg ) {
+			echo sprintf( $tpl, $msg['type'], $msg['text'], $msg['dism'] === true ? ' is-dismissible' : '' );
+		}
 	}
-    }
+	//show new API notice
+	$notice_dismissed_get = filter_input( INPUT_GET, 'asp_dismiss_new_api_msg', FILTER_SANITIZE_NUMBER_INT );
+	if ( $notice_dismissed_get ) {
+		update_option( 'asp_new_api_notice_dismissed', true );
+	}
+	$notice_dismissed = get_option( 'asp_new_api_notice_dismissed' );
+	if ( ! $notice_dismissed ) {
+		$tpl = '<div class="notice notice-%1$s%3$s">%2$s</div>';
+		$msg = '<p>The new version of the Stripe payments plugin has the SCA compliant API. You can enable it by going to the Advanced Settings menu of the plugin. Uncheck the "Enable Legacy Checkout API" checkbox to use the new SCA compliant API.</p>';
+		//here's link to advanced settings tab you can use in the message:
+		// <a href="edit.php?post_type=asp-products&page=stripe-payments-settings#advanced">advanced settings</a>
+		$admin_url   = get_admin_url();
+		$dismiss_url = add_query_arg( 'asp_dismiss_new_api_msg', '1', $admin_url );
+		$msg        .= '<p><a href="' . $dismiss_url . '">Dismiss this message for now</a></p>';
+		echo sprintf( $tpl, 'warning', $msg, '' );
+	}
+}
+
+
 
     static function add_admin_notice( $type, $text, $dism = true ) {
 	$msg_arr	 = get_transient( 'asp_admin_msg_arr' );
@@ -313,6 +331,9 @@ class AcceptStripePayments_Admin {
      * @since    1.0.0
      */
     public function register_settings( $value = '' ) {
+
+	$new_api_str='<br><sub class="asp-new-api-only">'.__('New API only','stripe-payments').'</sub>';
+
 	register_setting( 'AcceptStripePayments-settings-group', 'AcceptStripePayments-settings', array( &$this, 'settings_sanitize_field_callback' ) );
 
 	// Add/define the various section/groups (the fields will go under these sections).
@@ -323,6 +344,7 @@ class AcceptStripePayments_Admin {
 
 	add_settings_section( 'AcceptStripePayments-email-section', __( 'Email Settings', 'stripe-payments' ), null, $this->plugin_slug . '-email' );
 	add_settings_section( 'AcceptStripePayments-error-email-section', __( 'Transaction Error Email Settings', 'stripe-payments' ), null, $this->plugin_slug . '-email' );
+	add_settings_section( 'AcceptStripePayments-additional-email-section', __( 'Additional Email Settings', 'stripe-payments' ), null, $this->plugin_slug . '-email' );
 
 	add_settings_section( 'AcceptStripePayments-price-display', __( 'Price Display Settings', 'stripe-payments' ), null, $this->plugin_slug . '-advanced' );
 	add_settings_section( 'AcceptStripePayments-custom-field', __( 'Custom Field Settings', 'stripe-payments' ), null, $this->plugin_slug . '-advanced' );
@@ -341,6 +363,8 @@ class AcceptStripePayments_Admin {
 	add_settings_field( 'currency_symbol', __( 'Currency Symbol', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field' => 'currency_symbol', 'desc' => '', 'size' => 10 ) );
 	add_settings_field( 'button_text', __( 'Button Text', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'button_text',
 	    'desc'	 => __( 'Example: Buy Now, Pay Now etc.', 'stripe-payments' ) ) );
+	add_settings_field( 'popup_button_text', __( 'Payment Popup Button Text', 'stripe-payments' ).$new_api_str, array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'popup_button_text',
+	    'desc'	 => __( '%s is replaced by formatted payment amount (example: Pay $29.90). If this field is empty, it defaults to "Pay %s"', 'stripe-payments' ) ) );
 	add_settings_field( 'dont_save_card', __( 'Do Not Save Card Data on Stripe', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'dont_save_card',
 	    'desc'	 => __( 'When this checkbox is checked, the transaction won\'t create the customer (no card will be saved for that).', 'stripe-payments' ) ) );
 	add_settings_field( 'disable_remember_me', __( 'Turn Off "Remember me" Option', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'disable_remember_me',
@@ -350,7 +374,11 @@ class AcceptStripePayments_Admin {
 //	add_settings_field( 'use_new_button_method', __( 'Use New Method To Display Buttons', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'use_new_button_method',
 //	    'desc'	 => __( 'Use new method to display Stripe buttons. It makes connection to Stripe website only when button is clicked, which makes the page with buttons load faster. A little drawback is that Stripe pop-up is displayed with a small delay after button click. If you have more than one button on a page, enabling this option is highly recommended.', 'stripe-payments' ) . '<br /><b>' . __( 'Note:', 'stripe-payments' ) . '</b> ' . __( 'old method doesn\'t support custom price and quantity. If your shortcode or product is using one of those features, the new method will be used automatically for that entity.', 'stripe-payments' ) ) );
 	add_settings_field( 'checkout_lang', __( 'Stripe Checkout Language', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'checkout_lang',
-	    'desc'	 => __( 'Specify language to be used in Stripe checkout pop-up or select "Autodetect" to let Stripe handle it.', 'stripe-payments' ) ) );
+	    'desc'	 => __( 'Specify language to be used in Stripe checkout pop-up or select "Autodetect" to let Stripe handle it.', 'stripe-payments' ) .'<br>Note this is not currently supported by new API.' ) );
+	add_settings_field( 'popup_default_country', __( 'Popup Default Country', 'stripe-payments' ).$new_api_str, array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'popup_default_country',
+	    'desc'	 => __( 'Select the default country that should be set on the payment popup window for billing and shipping address.', 'stripe-payments' ) ) );
+	add_settings_field( 'prefill_wp_user_details', __( 'Perfill Logged In User Name and Email', 'stripe-payments' ).$new_api_str, array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-global-section', array( 'field'	 => 'prefill_wp_user_details',
+	    'desc'	 => __( 'When payment is made by logged in WordPress user, his\her name and email are prefilled to corresponding payment popup fields.', 'stripe-payments' ) ) );
 
 	// Credentials section
 	add_settings_field( 'is_live', __( 'Live Mode', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug, 'AcceptStripePayments-credentials-section', array( 'field' => 'is_live', 'desc' => __( 'Check this to run the transaction in live mode. When unchecked it will run in test mode.', 'stripe-payments' ) ) );
@@ -411,6 +439,11 @@ class AcceptStripePayments_Admin {
 	add_settings_field( 'send_email_on_error_to', __( 'Send Error Email To', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug . '-email', 'AcceptStripePayments-error-email-section', array( 'field'	 => 'send_email_on_error_to',
 	    'desc'	 => __( 'Enter recipient address of error email.', 'stripe-payments' ) )
 	);
+
+	// Additional Email Settings
+	add_settings_field( 'enable_email_schedule', __( 'Send Emails in Parallel', 'stripe-payments' ).$new_api_str, array( &$this, 'settings_field_callback' ), $this->plugin_slug . '-email', 'AcceptStripePayments-additional-email-section', array( 'field'	 => 'enable_email_schedule',
+	    'desc'	 => __( 'Enabling this option should speed up checkout process for customers. Test this before enabling on production as it may not work properly on some setups.', 'stripe-payments' ) )
+	);	
 
 	// Price Display section
 	add_settings_field( 'price_currency_pos', __( 'Currency Position', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug . '-advanced', 'AcceptStripePayments-price-display', array( 'field'	 => 'price_currency_pos',
@@ -473,6 +506,9 @@ class AcceptStripePayments_Admin {
 	);
 
 	// Additional Settings
+	add_settings_field( 'use_old_checkout_api1', __( 'Enable Legacy Checkout API', 'stripe-payments' ), array( $this, 'settings_field_callback' ), $this->plugin_slug . '-advanced', 'AcceptStripePayments-additional-settings', array( 'field'	 => 'use_old_checkout_api1',
+	    'desc'	 => __( "Use the legacy API to process payments. Note that the legacy API is not compatible with 3-D Secure and EU's Strong Customer Authentication (SCA) requirements. Stripe may disable this legacy API in the future. If there is a bug in the new API, then continue to use the legacy API while we fix the bug.", 'stripe-payments' ) )
+	);
 	add_settings_field( 'disable_buttons_before_js_loads', __( 'Disable Buttons Before Javascript Loads', 'stripe-payments' ), array( &$this, 'settings_field_callback' ), $this->plugin_slug . '-advanced', 'AcceptStripePayments-additional-settings', array( 'field'	 => 'disable_buttons_before_js_loads',
 	    'desc'	 => __( "If enabled, payment buttons are not clickable until Javascript libraries are loaded on page view. This prevents \"Invalid Stripe Token\" errors on some configurations.", 'stripe-payments' ) )
 	);
@@ -619,14 +655,17 @@ class AcceptStripePayments_Admin {
 	    case 'send_emails_to_buyer':
 	    case 'stripe_receipt_email':
 	    case 'send_email_on_error':
-	    case 'use_new_button_method':
+		case 'use_new_button_method':
+		case 'prefill_wp_user_details':
 	    case 'is_live':
-	    case 'disable_remember_me':
+		case 'disable_remember_me':
+		case 'use_old_checkout_api1':
 	    case 'disable_buttons_before_js_loads':
 	    case 'dont_save_card':
 	    case 'custom_field_mandatory':
 	    case 'enable_zip_validation':
-	    case 'dont_create_order':
+		case 'dont_create_order':
+		case 'enable_email_schedule':
 		echo "<input type='checkbox' name='AcceptStripePayments-settings[{$field}]' value='1' " . ($field_value ? 'checked=checked' : '') . " /><p class=\"description\">{$desc}</p>";
 		break;
 	    case 'custom_field_enabled':
@@ -673,6 +712,12 @@ class AcceptStripePayments_Admin {
 		echo $this->get_checkout_lang_options( $field_value );
 		echo '</select>';
 		echo "<p class=\"description\">{$desc}</p>";
+		break;
+		case 'popup_default_country':
+		echo '<select name="AcceptStripePayments-settings[' . $field . ']">';
+		echo ASP_Utils::get_countries_opts($field_value);
+		echo '</select>';
+		echo "<p class=\"description\">{$desc}</p>";			
 		break;
 	    case 'price_currency_pos':
 		?>
@@ -736,6 +781,8 @@ class AcceptStripePayments_Admin {
 
 	$output [ 'tos_store_ip' ] = empty( $input[ 'tos_store_ip' ] ) ? 0 : 1;
 
+	$output [ 'enable_email_schedule' ] = empty( $input[ 'enable_email_schedule' ] ) ? 0 : 1;
+
 	$output[ 'tos_text' ] = ! empty( $input[ 'tos_text' ] ) ? $input[ 'tos_text' ] : '';
 
 	$output[ 'custom_field_enabled' ] = empty( $input[ 'custom_field_enabled' ] ) ? 0 : 1;
@@ -782,6 +829,8 @@ class AcceptStripePayments_Admin {
 
 	$output[ 'use_new_button_method' ] = empty( $input[ 'use_new_button_method' ] ) ? 0 : 1;
 
+	$output[ 'prefill_wp_user_details' ] = empty( $input[ 'prefill_wp_user_details' ] ) ? 0 : 1;
+
 	$output[ 'send_emails_to_buyer' ] = empty( $input[ 'send_emails_to_buyer' ] ) ? 0 : 1;
 
 	$output[ 'stripe_receipt_email' ] = empty( $input[ 'stripe_receipt_email' ] ) ? 0 : 1;
@@ -793,6 +842,8 @@ class AcceptStripePayments_Admin {
 	$output[ 'send_email_on_error_to' ] = sanitize_text_field( $input[ 'send_email_on_error_to' ] );
 
 	$output[ 'disable_buttons_before_js_loads' ] = empty( $input[ 'disable_buttons_before_js_loads' ] ) ? 0 : 1;
+
+	$output[ 'use_old_checkout_api1' ] = empty( $input[ 'use_old_checkout_api1' ] ) ? 0 : 1;
 
 	$output[ 'dont_create_order' ] = empty( $input[ 'dont_create_order' ] ) ? 0 : 1;
 
@@ -823,6 +874,12 @@ class AcceptStripePayments_Admin {
 	else
 	    add_settings_error( 'AcceptStripePayments-settings', 'invalid-button-text', __( 'Button text should not be empty.', 'stripe-payments' ) );
 
+	if (! empty($input['popup_button_text'])) {
+	    $output[ 'popup_button_text' ] = $input[ 'popup_button_text' ];
+	} else {
+		$output[ 'popup_button_text' ] = __( "Pay %s",'stripe-payments' );
+	}
+
 	if ( ! empty( $input[ 'currency_code' ] ) ) {
 	    $output[ 'currency_code' ]	 = $input[ 'currency_code' ];
 	    $currencies			 = AcceptStripePayments::get_currencies();
@@ -844,6 +901,8 @@ class AcceptStripePayments_Admin {
 	    add_settings_error( 'AcceptStripePayments-settings', 'invalid-currency-code', __( 'You must specify payment currency.', 'stripe-payments' ) );
 
 	$output[ 'checkout_lang' ] = $input[ 'checkout_lang' ];
+
+	$output[ 'popup_default_country' ] = $input[ 'popup_default_country' ];
 
 	$output[ 'api_publishable_key' ] = $input[ 'api_publishable_key' ];
 

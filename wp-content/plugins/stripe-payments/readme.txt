@@ -5,7 +5,7 @@ Tags: stripe, stripe payments, stripe gateway, payment, payments, button, shortc
 Requires at least: 4.7
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 1.9.25
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,8 @@ https://www.youtube.com/watch?v=upWqk069Khg
 * Option to enable Alipay payments. So your customers can pay using their Alipay accounts.
 * Option to enable Terms and Conditions that your customers have to accept before they can make a purchase.
 * Ability to configure variable products. You can charge different amount for different options of the product.
+* 3D Secure payments compatible.
+* Strong Customer Authentication (SCA) Compliant.
 
 The setup is very easy. Once you have installed the plugin, all you need to do is enter your Stripe API credentials in the plugin settings and your website will be ready to accept credit card payments.
 
@@ -151,6 +153,39 @@ None.
 
 == Changelog ==
 
+= 2.0.6 =
+- [New API]: Customer info and card data is now saved on Stripe unless "Do Not Save Card Data on Stripe" option is enabled.
+- [New API]: Added "Perfill Logged In User Name and Email" option to prefill corresponding payment popup fields with logged in user's name and email.
+- Added 'asp_stripe_order_register_post_type_args' filter to override 'stripe-order' post type args.
+
+= 2.0.5 =
+- [New API]: Fixed payment popup was not scrollable on Apple devices.
+- [New API]: Added "Send Emails In Parallel" option that should speed up checkout process.
+- [New API]: Removed excess output for buttons when new API is used.
+
+= 2.0.4 =
+- [New API]: Added "Popup Default Country" option that sets default country on payment popup for billing and shipping address.
+- Minor bugfixes for the new API.
+
+= 2.0.3 =
+- [New API]: Fixed new API was enabled by default. Now you need to disable "Enable Legacy Checkout API" option on Advanced Settings tab to use new API. 
+- [New API]: Fixed popup button text was empty on plugin update. 
+- [New API]: Fixed popup form was not scrollable on some mobile devices.
+- [New API]: Added white background for popup item logo.
+- [New API]: Fixed product description wasn't passed to Stripe.
+- [New API]: Fixed customer_email shortcode parameter was ignored.
+- [New API]: Added customer_name shortcode parameter to prefill customer name in payment popup.
+
+= 2.0.2 =
+- [New API]: Fixed checkout error when both billing and shipping address collection enabled.
+- [New API]: Fixed popup JavaScript caching issue.
+
+= 2.0.1 =
+- Important: This is a major upgrade. We advise that you backup your site before upgrading the plugin.
+- Added new SCA compliant API for checkout. There is a new payment popup that utilizes SCA-complaint payment process.
+- You can enable the new SCA compliant checkout by going to the "Advanced Settings Menu" of the plugin then unchecking the "Enable Legacy Checkout API" checkbox.
+- By default it uses the legacy API to ensure that it is a smooth upgrade. We don't want your checkout process to be broken after the upgrade.
+
 = 1.9.25 =
 - Fixed improper frontend total amount display in some circumstances.
 - Fixed total amount was displayed instead of item price in some circumstances.
@@ -176,36 +211,5 @@ None.
 - Product description now supports WP embeds.
 - Tweaks for better compatability with various page builders.
 - Other minor bugfixes.
-
-= 1.9.22 =
-- Fixed archive pages list could be messed up when plugin is enabled.
-- Fixed the "asp_stripe_payments_checkout_page_result" filter hook not triggering correctly.
-
-= 1.9.21 =
-- Fixed frontend discount amount display when custom quantity is enabled and initial quantity is set to 0 or empty.
-- Fixed adding groups to existing product with variations caused improper variations placement.
-- Fixed tax amount was displayed rounded down on frontend under some circumstances (wasn't affecting actual payment amount).
-- Product variations are now added to payment metadata in Stripe account.
-- Added admin side notice if required PHP modules are not installed on the server.
-
-= 1.9.20 =
-- Added Stripe Payments Product Gutenberg block.
-- Added button_only parameter to [asp_product] shortcode. When set to "1", no product title and info is displayed.
-- Fixed PHP notices when viewing some products with variations.
-
-= 1.9.19 =
-- Fixed issues on Settings page that prevented it from being properly displayed in some versions of Safari browser.
-- Stripe Payments menu icon color changed to white to have better contrast with dark menu background.
-- Fixed minor HTML-related admin interface issues.
-
-= 1.9.18 =
-- Trial subscriptions are now displaying 0 as payment amount on checkout results and email receipts.
-Payment button in Stripe pop-up for those now shows "Start Free Trial" instead of payment amount.
-Requires Subscriptions addon 1.4.5+
-- Added validation for custom filed. You can use your own validation rules via custom JavaScript RegExp.
-- Fixed invalid amount was displayed on Stripe pop-up when variable price and quantity is used.
-- {product_details} merge tag is available for custom checkout results page.
-- Purchase date is now displayed using WP date\time format settings and considers timezone.
-- Added option to display product variations as radio buttons (can be set per product on product edit page).
 
 Previous versions changelog available in changelog.txt file.
