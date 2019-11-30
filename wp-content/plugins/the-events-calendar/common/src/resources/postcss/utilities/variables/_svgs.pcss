@@ -2,10 +2,35 @@
  * SVG - Arrow Right
  * ----------------------------------------------------------------------------- */
 
+@svg-load arrow-right-active url('../icons/arrow-right.svg') {
+
+	path {
+		fill: var(--color-icon-active);
+	}
+}
+
+@svg-load arrow-right-secondary url('../icons/arrow-right.svg') {
+
+	path {
+		fill: var(--color-icon-secondary);
+	}
+}
+
 @svg-load arrow-right-white url('../icons/arrow-right.svg') {
 
 	path {
 		fill: var(--color-background);
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * SVG - Arrow (light, left)
+ * ----------------------------------------------------------------------------- */
+
+@svg-load arrow url('../icons/arrow.svg') {
+
+	path {
+		fill: var(--color-icon-primary);
 	}
 }
 
@@ -107,6 +132,24 @@
 }
 
 /* -----------------------------------------------------------------------------
+ * SVG - Close
+ * ----------------------------------------------------------------------------- */
+
+@svg-load close-secondary url('../icons/close.svg') {
+
+	path {
+		stroke: var(--color-icon-secondary);
+	}
+}
+
+@svg-load close url('../icons/close.svg') {
+
+	path {
+		stroke: var(--color-icon-primary);
+	}
+}
+
+/* -----------------------------------------------------------------------------
  * SVG - Day
  * ----------------------------------------------------------------------------- */
 
@@ -129,6 +172,17 @@
 }
 
 /* -----------------------------------------------------------------------------
+ * SVG - Error
+ * ----------------------------------------------------------------------------- */
+
+@svg-load error-active url('../icons/error.svg') {
+
+	path {
+		fill: var(--color-icon-active);
+	}
+}
+
+/* -----------------------------------------------------------------------------
  * SVG - Featured
  * ----------------------------------------------------------------------------- */
 
@@ -136,6 +190,13 @@
 
 	path {
 		fill: var(--color-accent-primary);
+	}
+}
+
+@svg-load featured-active url('../icons/featured-event.svg') {
+
+	path {
+		fill: var(--color-icon-active);
 	}
 }
 
@@ -267,6 +328,26 @@
 
 	path {
 		fill: var(--color-accent-primary);
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * SVG - Remove
+ * ----------------------------------------------------------------------------- */
+
+@svg-load remove url('../icons/remove.svg') {
+
+	circle,
+	path {
+		stroke: var(--color-icon-primary);
+	}
+}
+
+@svg-load remove-secondary url('../icons/remove.svg') {
+
+	circle,
+	path {
+		stroke: var(--color-icon-secondary);
 	}
 }
 

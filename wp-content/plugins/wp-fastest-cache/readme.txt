@@ -3,8 +3,8 @@ Contributors: emrevona
 Donate link: http://profiles.wordpress.org/emrevona/
 Tags: cache, caching, performance, wp-cache, total cache, super cache, cdn
 Requires at least: 3.3
-Tested up to: 5.2
-Stable tag: 0.8.9.7
+Tested up to: 5.3
+Stable tag: 0.9.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,6 @@ The simplest and fastest WP Cache system
 
 You can find more information on our web site (<a href="http://www.wpfastestcache.com/">wpfastestcache.com</a>)
 
-This plugin creates static html files from your dynamic WordPress blog.
 When a page is rendered, php and mysql are used. Therefore, system needs RAM and CPU. 
 If many visitors come to a site, system uses lots of RAM and CPU so page is rendered so slowly. In this case, you need a cache system not to render page again and again. Cache system generates a static html file and saves. Other users reach to static html page.
 <br><br>
@@ -60,13 +59,14 @@ Wpfc supports Wordpress Multisite [<a target="_blank" href="https://www.wpfastes
 * 中文 (by suifengtec)
 * Deutsch
 * English
-* Español (by Diplo)
+* Español (by Javier Esteban)
 * Français (by PascalJ)
 * Italiana (by Valerio)
 * 日本語 (by KUCKLU)
 * Nederlands (by Frans Pronk https://ifra.nl)
 * Polski (by roan24.pl)
 * Português
+* Português do Brasil (Mario Antonio Sesso Junior)
 * Română
 * Русский (by Maxim)
 * Suomi (by Arhi Paivarinta)
@@ -102,6 +102,28 @@ Wpfc supports Wordpress Multisite [<a target="_blank" href="https://www.wpfastes
 18. Database Cleanup
 
 == Changelog ==
+
+= 0.9.0.0 =
+* to exclude the css source of elementor which is /elementor/css/post-[number].css to avoid increasing the size of minified sources
+* to replace urls which have data-vc-parallax-image attribute with cdn-url
+* to avoid clearing cache of feed after voting (All In One Schema.org Rich Snippets)
+* to fix clearing cache after switching url on WPML
+
+= 0.8.9.9 =
+* to fix Undefined variable: count_posts in preload.php on line 112
+* to update of Spanish translation
+* to preload the language pages (WPML)
+* to clear cache of the commend feed as well after clearing cache of a post
+
+= 0.8.9.8 =
+* to clear cache of /feed as well after clearing cache of a post
+* to fix PHP Notice: Undefined index: wpfc in timeout.php on line 132
+* to clear cache when a approved commens is updated
+* to add swf extension for cdn
+* to replace urls which have data-fullurl, data-bg, data-mobileurl and data-lazy attribute with cdn-url
+* <strong>[FEATURE]</strong> Traditional Chinese language has been added
+* to convert the icon from png to svg [by Roni Laukkarinen]
+* to fix Undefined index: HTTP_HOST cache.php on line 321
 
 = 0.8.9.7 =
 * to create cache for xml sources
@@ -346,7 +368,7 @@ Wpfc supports Wordpress Multisite [<a target="_blank" href="https://www.wpfastes
 * to fix Woocommerce basket issue
 * to serve the sources via cdn for logged-in users
 * to prevent removing "=" from exclude rules
-* to change <FilesMatch "\.(html|htm)"> to <FilesMatch "index\.(html|htm)">
+* to change &lt;FilesMatch "\.(html|htm)"&gt; to &lt;FilesMatch "index\.(html|htm)"&gt;
 * to fix problem about random url of photon
 * to replace origin-url which starts with /wp-content with cdn-url
 * to replace wp_get_recent_posts() with get_results() for preload

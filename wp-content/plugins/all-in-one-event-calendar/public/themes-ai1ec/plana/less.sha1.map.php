@@ -38,11 +38,26 @@
     'linkColorHover' => '#335980',
     'monthViewDateBackground' => '#eaf4ff',
     'placeholderText' => '#999999',
+    'posterboardDateTitleText' => '#ffffff',
+    'posterboardFooterBg' => '#f6f1ea',
+    'posterboardImageBorder' => 'rgba(0,0,0,0)',
+    'posterboardImagePadding' => '#fff',
+    'posterboardImagePaddingWidth' => '8px',
+    'posterboardMainBg' => 'rgba(255, 255, 255, 0)',
+    'posterboardTileBg' => '#fff9f0',
+    'posterboardTileBorder' => '#fff9f0',
+    'posterboardTileShadow' => 'rgba(0,0,0,0.4)',
+    'streamDateTitleBackground' => '#c4c4c4',
+    'streamDateTitleText' => '#ffffff',
+    'streamEventBackground' => '#ffffff',
+    'streamEventBorder' => '#cccccc',
     'tableBackground' => '#ffffff',
     'tableLabelBackground' => '#f5f5f5',
     'tableLabelText' => '#9e9e9e',
     'textColor' => '#333333',
     'textEmboss' => '#ffffff',
+    'titleFontFamily' => '"League Gothic", Impact, "Arial Black", Arial, sans-serif',
+    'titleFontSize' => '30px',
     'todayColor' => '#ffffdd',
   ),
   'files' => 
@@ -267,6 +282,11 @@
       'size' => 3834,
       'sha1' => '4d8998b021b5480608424156cc554ff7393d60f0',
     ),
+    'less\\extended_views.less' => 
+    array (
+      'size' => 595,
+      'sha1' => '8e72d1c81c2781dff3e5d977bdedd7a343244e8f',
+    ),
     'less\\font-awesome\\bordered-pulled.less' => 
     array (
       'size' => 330,
@@ -332,6 +352,11 @@
       'size' => 10665,
       'sha1' => '8d7d0d81e445093ecc58577605c36320d2741ba7',
     ),
+    'less\\fonts\\font-league-gothic.less' => 
+    array (
+      'size' => 483,
+      'sha1' => 'ade2834177d0a2a466c2dbd08a5d4a0c348b059b',
+    ),
     'less\\override.less' => 
     array (
       'size' => 2253,
@@ -381,6 +406,11 @@
     array (
       'size' => 8612,
       'sha1' => 'eac102828cb0188f135039907e2b6ba503536baf',
+    ),
+    'less\\user_variables_ev.php' => 
+    array (
+      'size' => 2875,
+      'sha1' => 'edf0e9b240b3cda3b30b6b835bf6dfedb1047edf',
     ),
     'less\\variables.less' => 
     array (

@@ -3,9 +3,9 @@ Contributors: Tips and Tricks HQ, wptipsntricks, alexanderfoxc
 Donate link: https://s-plugins.com
 Tags: stripe, stripe payments, stripe gateway, payment, payments, button, shortcode, digital goods, payment gateway, instant payment, commerce, digital downloads, downloads, e-commerce, e-store, ecommerce, eshop, donation
 Requires at least: 4.7
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 2.0.6
+Stable tag: 2.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,11 +25,11 @@ The transaction info is also captured in the orders menu of the plugin. You can 
 
 = Setup and Usage Video =
 
-https://www.youtube.com/watch?v=yQB6IKz73g4
+https://www.youtube.com/watch?v=L0n_jlEhmoA
 
 = Checkout Demo Video =
 
-https://www.youtube.com/watch?v=upWqk069Khg
+https://www.youtube.com/watch?v=b6owgRBTUwA
 
 = Features =
 
@@ -153,9 +153,63 @@ None.
 
 == Changelog ==
 
+= 2.0.12 =
+- Fixed subscription payment with tax validity check.
+- Fixed subscription payment invalid tax amount displayed on checkout results page.
+- Added support for [iDEAL](https://s-plugins.com/stripe-ideal-payment-addon/) and [Country Autodetect](https://s-plugins.com/stripe-country-autodetect-addon/) addons.
+
+= 2.0.11 =
+- Fixed an issue with duplicate buy emails being sent on some browsers.
+- Fixed "Processing" text was showing in the product insert block.
+- Added the Spanish language translation file.
+- Fixed subscription payment with tax not processing correctly.
+
+= 2.0.10 =
+- [New API]: Fixed selected variations weren't properly passed upon payment form submission.
+- [New API]: Fixed "Invalid email address" error when APM addon is installed and "Send Receipt Email From Stripe" option enabled.
+- [New API]: Added Alipay addon support. Requires Alipay addon version 2.0.0+.
+- Legacy API is disabled by default for fresh plugin installations.
+- Added admin area notice regarding SCA compatibility.
+- Added Bosnia and Herzegovina Convertible Mark (BAM) currency.
+
+= 2.0.9 =
+- [New API]: Fixed zero cents currencies were divided by 100 on payments result page and order info.
+- [New API]: Fixed Stripe receipt wasn't sent if "Do Not Save Card Data on Stripe" option enabled.
+- [New API]: ZIP\postal code is now requested on credit card input when "Validate ZIP Code" option enabled and address collection disabled for a product.
+- [New API]: Product name and ID are now saved in payment metadata on Stripe Dashboard.
+- [New API]: If product short description is empty, product name is used for payment details "Description" on Stripe Dashboard.
+- [New API]: Added spinner after payment popup form submission.
+- [New API]: Single variation in a row is now full-width (instead of half-width before).
+- [New API]: Adjusted payment popup display on mobile devices.
+
+= 2.0.8 =
+- [New API]: Added compatibility with optimization plugins that do minify\combine JavaScript.
+- [New API]: Fixed currency wasn't properly updated for variable currency payments in some situations. 
+- [New API]: Fixed product with stock control enabled could produce fatal error during payment process under some circumstances. 
+- [New API]: Fixed checkbox custom field display issue.
+- [New API]: Added mandatory inputs validation for browsers that don't provide it.
+- [New API]: Fixed rare issue that could break payment process if payment button was clicked multiple times.
+- [New API]: Added per-product "Show Order Total On Payment Popup" option. When enabled, it displays detailed financial info (tax, variations, coupon etc) on payment popup.
+- [New API]: Added support for reCaptcha addon. reCatpcha addon version 2.0.0+ is required to work with new payment popup.
+- [New API]: Added support for Additional Payment Methods addon. APM addon version 2.0.0+ is required to work with new payment popup.
+- [New API]: Some visual tweaks and fixes for payment popup.
+- Fixed custom input wasn't properly validating and honoring "Mandatory" option if position was "Below Button" (legacy API only).
+- Added new product edit interface. To see it in action, check the "Enable Compact Product Edit Interface" checkbox in the Advanced Settings tab.
+
+= 2.0.7.1 =
+- [New API]: Fixed visual bug on payment popup when coupons are enabled.
+
+= 2.0.7 =
+- [New API]: Moved process_ipn action to wp_loaded hook. Should fix issues with "The site is experiencing technical problems" error during payment processing on some configurations.
+- [New API]: Restyled payment popup for better responsiveness on mobile devices.
+- [New API]: Updated Stripe PHP SDK library to 6.43.1.
+- [New API]: Added debug log warning when another Stripe PHP SDK is loaded. Warning is logged once per 6 hours in order to not flood the log.
+- [New API]: Payment popup server interaction errors are now more informative.
+- [New Api]: Removed excess "Coupon is invalid for the product" debug log message when no coupon code provided.
+
 = 2.0.6 =
 - [New API]: Customer info and card data is now saved on Stripe unless "Do Not Save Card Data on Stripe" option is enabled.
-- [New API]: Added "Perfill Logged In User Name and Email" option to prefill corresponding payment popup fields with logged in user's name and email.
+- [New API]: Added "Prefill Logged In User Name and Email" option to prefill corresponding payment popup fields with logged in user's name and email.
 - Added 'asp_stripe_order_register_post_type_args' filter to override 'stripe-order' post type args.
 
 = 2.0.5 =
@@ -209,7 +263,7 @@ None.
 - Frontend amount and quantity inputs are disabled on payment form submit to prevent "Token can't be used more than once" error.
 - Fixed zero-cent currencies displaying and handling issues.
 - Product description now supports WP embeds.
-- Tweaks for better compatability with various page builders.
+- Tweaks for better compatibility with various page builders.
 - Other minor bugfixes.
 
 Previous versions changelog available in changelog.txt file.

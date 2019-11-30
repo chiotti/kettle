@@ -132,14 +132,14 @@ class Ai1ec_Filesystem_Misc extends Ai1ec_Base {
      * Returns theme structrure for one of core themes.
      *
      * @param string $stylesheet Theme stylesheet. Expected one of
-     *                           ['plana','vortex','umbra','gamma'].
+     *                           ['plana','vortex','umbra','gamma','journey'].
      *
      * @return array Theme structure
      *
      * @throws Ai1ec_Invalid_Argument_Exception
      */
     public function build_theme_structure( $stylesheet ) {
-        $themes = array( 'plana', 'vortex', 'umbra', 'gamma' );
+        $themes = array( 'plana', 'vortex', 'umbra', 'gamma', 'journey' );
         if ( ! in_array( $stylesheet, $themes ) ) {
             throw new Ai1ec_Invalid_Argument_Exception(
                 'Theme ' . $stylesheet . ' compilation is not supported.'

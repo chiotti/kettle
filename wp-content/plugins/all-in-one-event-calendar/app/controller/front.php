@@ -877,7 +877,10 @@ class Ai1ec_Front_Controller {
                 'admin_menu',
                 array( 'view.admin.tickets', 'add_page' )
             );
-
+            $dispatcher->register_action(
+                'admin_menu',
+                array( 'view.admin.activate', 'add_page' )
+            );
         } else { // ! is_admin()
             $dispatcher->register_action(
                 'after_setup_theme',

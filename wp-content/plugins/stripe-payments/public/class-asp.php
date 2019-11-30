@@ -323,7 +323,7 @@ class AcceptStripePayments {
 			'custom_field_mandatory'          => 0,
 			'send_email_on_error'             => 0,
 			'send_email_on_error_to'          => $admin_email,
-			'use_old_checkout_api1'           => 1,
+			'use_old_checkout_api1'           => 0,
 			'disable_buttons_before_js_loads' => 0,
 			'tos_text'                        => __( 'I accept the <a href="https://example.com/terms-and-conditions/" target="_blank">Terms and Conditions</a>', 'stripe-payments' ),
 		);
@@ -630,6 +630,15 @@ class AcceptStripePayments {
 
 	public function enqueue_frontend_scripts_styles() {
 		wp_register_script( 'stripe-handler-ng', WP_ASP_PLUGIN_URL . '/public/assets/js/stripe-handler-ng.js', array( 'jquery' ), WP_ASP_PLUGIN_VERSION, true );
+		$home_url = get_home_url( null, '/' );
+
+		$iframe_url = add_query_arg(
+			array(
+				'asp_action' => 'show_pp',
+			),
+			$home_url
+		);
+		wp_localize_script( 'stripe-handler-ng', 'wpASPNG', array( 'iframeUrl' => $iframe_url ) );
 		wp_enqueue_script( 'stripe-handler-ng' );
 		wp_register_style( 'stripe-handler-ng-style', WP_ASP_PLUGIN_URL . '/public/assets/css/public.css', array(), WP_ASP_PLUGIN_VERSION );
 		wp_enqueue_style( 'stripe-handler-ng-style' );

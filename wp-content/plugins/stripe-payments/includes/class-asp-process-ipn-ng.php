@@ -3,10 +3,12 @@ class ASP_Process_IPN_NG {
 
 	public $asp_redirect_url = '';
 	public function __construct() {
-		$process_ipn = filter_input( INPUT_POST, 'asp_process_ipn', FILTER_SANITIZE_NUMBER_INT );
+		$process_ipn            = filter_input( INPUT_POST, 'asp_process_ipn', FILTER_SANITIZE_NUMBER_INT );
+		$this->asp_class        = AcceptStripePayments::get_instance();
+		$this->sess             = ASP_Session::get_instance();
+		$this->asp_redirect_url = $this->asp_class->get_setting( 'checkout_url' );
 		if ( $process_ipn ) {
-			$this->asp_class = AcceptStripePayments::get_instance();
-			add_action( 'plugins_loaded', array( $this, 'process_ipn' ), 2147483647 );
+			add_action( 'wp_loaded', array( $this, 'process_ipn' ), 2147483647 );
 		}
 	}
 
@@ -47,16 +49,47 @@ class ASP_Process_IPN_NG {
 		exit;
 	}
 
-	public function process_ipn() {
+	private function get_post_var( $var, $filter, $opts = null ) {
+		if ( isset( $this->post_data ) ) {
+			if ( isset( $this->post_data[ $var ] ) ) {
+				return filter_var( $this->post_data[ $var ], $filter, $opts );
+			} else {
+				return null;
+			}
+		}
+		$val = filter_input( INPUT_POST, $var, $filter, $opts );
+		return $val;
+	}
+
+	private function paid_amount_valid( $amount_in_cents, $amount_paid, $item ) {
+		if ( $amount_in_cents !== $amount_paid ) {
+			//check if this is a subs product
+			if ( method_exists( $item, 'get_plan_id' ) ) {
+				//this is subs product. Let's check if subs addon version is prior to 2.0.1.
+				if ( version_compare( ASPSUB_main::ADDON_VER, '2.0.1' ) < 0 ) {
+					//subs addon version is prior to 2.0.1. This means error is most likely not legit.
+					return true;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
+	public function process_ipn( $post_data = array() ) {
 		ASP_Debug_Logger::log( 'Payment processing started.' );
+
+		if ( ! empty( $post_data ) ) {
+			$this->post_data = $post_data;
+		}
 
 		$this->sess = ASP_Session::get_instance();
 
-		$post_thankyou_page_url = filter_input( INPUT_POST, 'asp_thankyou_page_url', FILTER_SANITIZE_STRING );
+		$post_thankyou_page_url = $this->get_post_var( 'asp_thankyou_page_url', FILTER_SANITIZE_STRING );
 
 		$this->asp_redirect_url = empty( $post_thankyou_page_url ) ? $this->asp_class->get_setting( 'checkout_url' ) : base64_decode( $post_thankyou_page_url ); //phpcs:ignore
 
-		$prod_id = filter_input( INPUT_POST, 'asp_product_id', FILTER_SANITIZE_NUMBER_INT );
+		$prod_id = $this->get_post_var( 'asp_product_id', FILTER_SANITIZE_NUMBER_INT );
 
 		if ( ! empty( $prod_id ) ) {
 			ASP_Debug_Logger::log( sprintf( 'Got product ID: %d', $prod_id ) );
@@ -70,7 +103,7 @@ class ASP_Process_IPN_NG {
 
 		$err = $item->get_last_error();
 
-		if ( $err ) {
+		if ( ! empty( $err ) ) {
 			$this->ipn_completed( $err );
 		}
 
@@ -78,7 +111,7 @@ class ASP_Process_IPN_NG {
 			$this->asp_redirect_url = $item->get_redir_url();
 		}
 
-		$pi = filter_input( INPUT_POST, 'asp_payment_intent', FILTER_SANITIZE_STRING );
+		$pi = $this->get_post_var( 'asp_payment_intent', FILTER_SANITIZE_STRING );
 
 		$completed_order = get_posts(
 			array(
@@ -96,12 +129,13 @@ class ASP_Process_IPN_NG {
 			exit;
 		}
 
-		$is_live = filter_input( INPUT_POST, 'asp_is_live', FILTER_VALIDATE_BOOLEAN );
+		$is_live = $this->get_post_var( 'asp_is_live', FILTER_VALIDATE_BOOLEAN );
 
 		ASPMain::load_stripe_lib();
 		$key = $is_live ? $this->asp_class->APISecKey : $this->asp_class->APISecKeyTest;
 		\Stripe\Stripe::setApiKey( $key );
 
+				//Get Payment Data
 		ASP_Debug_Logger::log( 'Firing asp_ng_process_ipn_payment_data_item_override filter.' );
 
 		$p_data = apply_filters( 'asp_ng_process_ipn_payment_data_item_override', false, $pi );
@@ -116,21 +150,37 @@ class ASP_Process_IPN_NG {
 		if ( ! empty( $p_last_err ) ) {
 			$this->ipn_completed( $p_last_err );
 		}
+				//End retrieval of payment data
 
+				//Mechanism to lock the txn that is being processed.
+				$txn_being_processed = get_option( 'asp_ng_ipn_txn_being_processed' );
+				$notification_txn_id = $p_data->get_trans_id();
+				ASP_Debug_Logger::log( 'The transaction ID of this notification is: ' . $notification_txn_id );
+		if ( ! empty( $txn_being_processed ) && $txn_being_processed == $notification_txn_id ) {
+			//No need to process this transaction as it is already being processed.
+			ASP_Debug_Logger::log( 'This transaction (' . $notification_txn_id . ') is already being procesed. This is likely a duplicate notification. Nothing to do.' );
+			return true;
+		}
+		update_option( 'asp_ng_ipn_txn_being_processed', $notification_txn_id );
+		//End of transaction processing lock mechanism
+
+		//Button key
 		$button_key = $item->get_button_key();
 
-		$post_quantity = filter_input( INPUT_POST, 'asp_quantity', FILTER_SANITIZE_NUMBER_INT );
+		//Item quantity
+		$post_quantity = $this->get_post_var( 'asp_quantity', FILTER_SANITIZE_NUMBER_INT );
 		if ( $post_quantity ) {
 			$item->set_quantity( $post_quantity );
 		}
 
+		//Item price
 		$price = $item->get_price();
 		if ( empty( $price ) ) {
-			$post_price = filter_input( INPUT_POST, 'asp_amount', FILTER_SANITIZE_NUMBER_FLOAT );
+			$post_price = $this->get_post_var( 'asp_amount', FILTER_SANITIZE_NUMBER_FLOAT );
 			if ( $post_price ) {
 				$price = $post_price;
 			} else {
-				$price = $p_data->get_amount();
+				$price = $p_data->get_amount( false );
 			}
 			$price = AcceptStripePayments::from_cents( $price, $item->get_currency() );
 			$item->set_price( $price );
@@ -138,9 +188,9 @@ class ASP_Process_IPN_NG {
 
 		$item_price = $item->get_price();
 
-		//variatoions
+		//Variatoions
 		$variations        = array();
-		$posted_variations = filter_input( INPUT_POST, 'asp_stripeVariations', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$posted_variations = $this->get_post_var( 'asp_stripeVariations', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		if ( $posted_variations ) {
 			// we got variations posted. Let's get variations from product
 			$v = new ASPVariations( $prod_id );
@@ -159,26 +209,30 @@ class ASP_Process_IPN_NG {
 			$item->set_price( $item_price );
 		}
 
-		//coupon
-		$coupon_code = filter_input( INPUT_POST, 'asp_coupon-code', FILTER_SANITIZE_STRING );
+		//Coupon
+		$coupon_code = $this->get_post_var( 'asp_coupon-code', FILTER_SANITIZE_STRING );
 		if ( $coupon_code ) {
 			ASP_Debug_Logger::log( sprintf( 'Coupon code provided: %s', $coupon_code ) );
 		}
 		$coupon_valid = $item->check_coupon( $coupon_code );
 
-		if ( $coupon_code && $coupon_valid ) {
-			ASP_Debug_Logger::log( 'Coupon is valid for the product.' );
-		} else {
-			ASP_Debug_Logger::log( 'Coupon is invalid for the product.' );
+		if ( ! empty( $coupon_code ) ) {
+			if ( $coupon_valid ) {
+				ASP_Debug_Logger::log( 'Coupon is valid for the product.' );
+			} else {
+				ASP_Debug_Logger::log( 'Coupon is invalid for the product.' );
+			}
 		}
 
 		$amount_in_cents = intval( $item->get_total( true ) );
-		$amount_paid     = $p_data->get_amount();
+		$amount_paid     = intval( $p_data->get_amount() );
 
-		if ( $amount_in_cents !== $amount_paid ) {
+		$paid_amount_valid = $this->paid_amount_valid( $amount_in_cents, $amount_paid, $item );
+
+		if ( ! $paid_amount_valid ) {
 			$curr = $p_data->get_currency();
 			$err  = sprintf(
-				// translators: placeholders ar expected and received amounts
+				// translators: placeholders are expected and received amounts
 				__( 'Invalid payment amount received. Expected %1$s, got %2$s.', 'stripe-payments' ),
 				AcceptStripePayments::formatted_price( $amount_in_cents, $curr, true ),
 				AcceptStripePayments::formatted_price( $amount_paid, $curr, true )
@@ -199,7 +253,7 @@ class ASP_Process_IPN_NG {
 
 		$data                       = array();
 		$data['product_id']         = $prod_id ? $prod_id : null;
-		$data['paid_amount']        = AcceptStripePayments::from_cents( $p_amount, $p_curr );
+		$data['paid_amount']        = AcceptStripePayments::is_zero_cents( $p_curr ) ? $p_amount : AcceptStripePayments::from_cents( $p_amount, $p_curr );
 		$data['currency_code']      = strtoupper( $p_curr );
 		$data['item_quantity']      = $item->get_quantity();
 		$data['charge']             = $p_charge_data;
@@ -237,9 +291,9 @@ class ASP_Process_IPN_NG {
 		$currency_code = $item->get_currency();
 
 		$custom_fields = array();
-		$cf_name       = filter_input( INPUT_POST, 'asp_stripeCustomFieldName', FILTER_SANITIZE_STRING );
+		$cf_name       = $this->get_post_var( 'asp_stripeCustomFieldName', FILTER_SANITIZE_STRING );
 		if ( $cf_name ) {
-			$cf_value        = filter_input( INPUT_POST, 'asp_stripeCustomField', FILTER_SANITIZE_STRING );
+			$cf_value        = $this->get_post_var( 'asp_stripeCustomField', FILTER_SANITIZE_STRING );
 			$custom_fields[] = array(
 				'name'  => $cf_name,
 				'value' => $cf_value,
@@ -247,7 +301,7 @@ class ASP_Process_IPN_NG {
 		}
 
 		//compatability with ACF addon
-		$acf_fields = filter_input( INPUT_POST, 'asp_stripeCustomFields', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$acf_fields = $this->get_post_var( 'asp_stripeCustomFields', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		if ( $acf_fields ) {
 			$_POST['stripeCustomFields'] = $acf_fields;
 		}
@@ -451,6 +505,9 @@ class ASP_Process_IPN_NG {
 		}
 
 		$this->sess->set_transient_data( 'asp_data', $data );
+
+				//Clear the txn lock
+				update_option( 'asp_ng_ipn_txn_being_processed', '' );
 
 		$this->ipn_completed();
 	}
