@@ -1,0 +1,453 @@
+0000.002 (0) Opened log file at time: Sun, 01 Dec 2019 15:18:23 +0000 on http://www.comedykettle.co.uk
+0000.008 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.16.20 WP: 5.3 PHP: 7.1.33-nfsn1 (NFGI, FreeBSD kettle.nfshost.com 11.3-RELEASE-p2 FreeBSD 11.3-RELEASE-p2 #2 r350750: Thu Aug  8 16:52:32 UTC 2019     root@x5:/usr/obj/usr/src/sys/NFSN64 amd64) MySQL: 10.1.20-MariaDB-1~xenial WPLANG: en_US Server: Apache safe_mode: 0 max_execution_time: 900 memory_limit: -1 (used: 33.9M | 2M) multisite: N openssl: OpenSSL 1.0.2t  10 Sep 2019 mcrypt: Y LANG: en_US.UTF-8 ZipArchive::addFile: Y
+0000.017 (0) Free space on disk containing Updraft's temporary directory: 35510.5 MB
+0000.030 (0) Deleting old log file: log.58496d044b1a.txt
+0000.044 (0) Tasks: Backup files: 1 (schedule: weekly) Backup DB: 1 (schedule: weekly)
+0000.065 (0) Requesting semaphore lock (fd) (apparently not via scheduler)
+0000.080 (0) Semaphore (fd, wp_options) was stuck, set lock time to 2019-12-01 15:18:23
+0000.104 (0) Semaphore (fd, wp_options) reset to 1
+0000.117 (0) Set semaphore last lock (fd) time to 2019-12-01 15:18:23
+0000.124 (0) Semaphore lock (fd) complete
+0000.146 (0) Backup run: resumption=0, nonce=e386934f8f5a, file_nonce=e386934f8f5a begun at=1575213503 (0s ago), job type=backup
+0000.160 (0) Scheduling a resumption (1) after 300 seconds (1575213803) in case this run gets aborted
+0000.201 (0) Checking if we have a zip executable available
+0000.214 (0) Testing: /usr/local/bin/zip
+0000.240 (0) Output: zip warning: binziptest/test.zip not found or empty
+0000.248 (0) Output: adding: binziptest/subdir1/	(in=0) (out=0) (stored 0%)
+0000.255 (0) Output: adding: binziptest/subdir1/subdir2/	(in=0) (out=0) (stored 0%)
+0000.262 (0) Output: adding: binziptest/subdir1/subdir2/test.html	(in=131) (out=107) (deflated 18%)
+0000.270 (0) Output: total bytes=131, compressed=107 -> 18% savings
+0000.303 (0) Output: adding: binziptest/subdir1/subdir2/test2.html	(in=138) (out=113) (deflated 18%)
+0000.312 (0) Output: total bytes=269, compressed=220 -> 18% savings
+0000.350 (0) Working binary zip found: /usr/local/bin/zip
+0000.364 (0) Zip engine: found/will use a binary zip: /usr/local/bin/zip
+0000.374 (0) Creation of backups of directories: beginning
+0000.401 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0006.562 (0) Total entities for the zip file: 1290 directories, 7221 files (0 skipped as non-modified), 98 MB
+0006.572 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0.1 MB, 1 (1) files added so far); re-opening (prior size: 0 KB)
+0006.758 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: size is now: 0.30 MB
+0006.849 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 100 files added (on-disk size: 327 KB)
+0006.938 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 200 files added (on-disk size: 327 KB)
+0007.018 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 300 files added (on-disk size: 327 KB)
+0007.095 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 400 files added (on-disk size: 327 KB)
+0007.193 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 500 files added (on-disk size: 327 KB)
+0007.203 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (14.9 MB, 7221 files batched, 501 (502) added so far); re-opening (prior size: 327 KB)
+0008.834 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: size is now: 4.30 MB
+0008.940 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 600 files added (on-disk size: 4376.6 KB)
+0009.028 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 700 files added (on-disk size: 4376.6 KB)
+0009.110 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 800 files added (on-disk size: 4376.6 KB)
+0009.193 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 900 files added (on-disk size: 4376.6 KB)
+0009.277 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1000 files added (on-disk size: 4376.6 KB)
+0009.289 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (2.8 MB, 7221 files batched, 501 (1003) added so far); re-opening (prior size: 4376.6 KB)
+0010.198 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: size is now: 5.20 MB
+0010.281 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1100 files added (on-disk size: 5336.4 KB)
+0010.360 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1200 files added (on-disk size: 5336.4 KB)
+0010.439 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1300 files added (on-disk size: 5336.4 KB)
+0010.520 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1400 files added (on-disk size: 5336.4 KB)
+0010.610 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1500 files added (on-disk size: 5336.4 KB)
+0010.626 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (11.1 MB, 7221 files batched, 501 (1504) added so far); re-opening (prior size: 5336.4 KB)
+0011.942 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: size is now: 8.80 MB
+0012.031 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1600 files added (on-disk size: 9052.9 KB)
+0012.114 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1700 files added (on-disk size: 9052.9 KB)
+0012.222 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1800 files added (on-disk size: 9052.9 KB)
+0012.324 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 1900 files added (on-disk size: 9052.9 KB)
+0012.414 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2000 files added (on-disk size: 9052.9 KB)
+0012.425 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (3.6 MB, 7221 files batched, 501 (2005) added so far); re-opening (prior size: 9052.9 KB)
+0013.582 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2100 files added (on-disk size: 10085.7 KB)
+0013.677 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2200 files added (on-disk size: 10085.7 KB)
+0013.771 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2300 files added (on-disk size: 10085.7 KB)
+0013.859 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2400 files added (on-disk size: 10085.7 KB)
+0013.941 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2500 files added (on-disk size: 10085.7 KB)
+0013.954 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (6.6 MB, 7221 files batched, 501 (2506) added so far); re-opening (prior size: 10085.7 KB)
+0015.129 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: size is now: 13.60 MB
+0015.216 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2600 files added (on-disk size: 13906.1 KB)
+0015.297 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2700 files added (on-disk size: 13906.1 KB)
+0015.379 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2800 files added (on-disk size: 13906.1 KB)
+0015.461 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 2900 files added (on-disk size: 13906.1 KB)
+0015.547 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3000 files added (on-disk size: 13906.1 KB)
+0015.564 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (2.9 MB, 7221 files batched, 501 (3007) added so far); re-opening (prior size: 13906.1 KB)
+0016.693 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3100 files added (on-disk size: 14953.7 KB)
+0016.775 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3200 files added (on-disk size: 14953.7 KB)
+0016.855 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3300 files added (on-disk size: 14953.7 KB)
+0016.941 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3400 files added (on-disk size: 14953.7 KB)
+0017.022 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3500 files added (on-disk size: 14953.7 KB)
+0017.044 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (3.1 MB, 7221 files batched, 501 (3508) added so far); re-opening (prior size: 14953.7 KB)
+0018.243 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3600 files added (on-disk size: 16329.6 KB)
+0018.322 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3700 files added (on-disk size: 16329.6 KB)
+0018.405 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3800 files added (on-disk size: 16329.6 KB)
+0018.485 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 3900 files added (on-disk size: 16329.6 KB)
+0018.573 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4000 files added (on-disk size: 16329.6 KB)
+0018.596 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (7.3 MB, 7221 files batched, 501 (4009) added so far); re-opening (prior size: 16329.6 KB)
+0020.956 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4100 files added (on-disk size: 18431.8 KB)
+0021.071 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4200 files added (on-disk size: 18431.8 KB)
+0021.175 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4300 files added (on-disk size: 18431.8 KB)
+0021.287 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4400 files added (on-disk size: 18431.8 KB)
+0021.368 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4500 files added (on-disk size: 18431.8 KB)
+0021.383 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (9.7 MB, 7221 files batched, 501 (4510) added so far); re-opening (prior size: 18431.8 KB)
+0023.330 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4600 files added (on-disk size: 21303.7 KB)
+0023.442 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4700 files added (on-disk size: 21303.7 KB)
+0023.534 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4800 files added (on-disk size: 21303.7 KB)
+0023.621 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 4900 files added (on-disk size: 21303.7 KB)
+0023.703 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5000 files added (on-disk size: 21303.7 KB)
+0023.721 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (2.3 MB, 7221 files batched, 501 (5011) added so far); re-opening (prior size: 21303.7 KB)
+0024.959 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5100 files added (on-disk size: 22188.7 KB)
+0025.045 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5200 files added (on-disk size: 22188.7 KB)
+0025.128 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5300 files added (on-disk size: 22188.7 KB)
+0025.217 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5400 files added (on-disk size: 22188.7 KB)
+0025.301 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5500 files added (on-disk size: 22188.7 KB)
+0025.317 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (10.7 MB, 7221 files batched, 501 (5512) added so far); re-opening (prior size: 22188.7 KB)
+0027.227 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5600 files added (on-disk size: 25712.9 KB)
+0027.313 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5700 files added (on-disk size: 25712.9 KB)
+0027.395 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5800 files added (on-disk size: 25712.9 KB)
+0027.468 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 5900 files added (on-disk size: 25712.9 KB)
+0027.541 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6000 files added (on-disk size: 25712.9 KB)
+0027.565 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (11.7 MB, 7221 files batched, 501 (6013) added so far); re-opening (prior size: 25712.9 KB)
+0029.225 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6100 files added (on-disk size: 29187.3 KB)
+0029.346 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6200 files added (on-disk size: 29187.3 KB)
+0029.439 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6300 files added (on-disk size: 29187.3 KB)
+0029.528 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6400 files added (on-disk size: 29187.3 KB)
+0029.737 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6500 files added (on-disk size: 29187.3 KB)
+0029.757 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (1.3 MB, 7221 files batched, 501 (6514) added so far); re-opening (prior size: 29187.3 KB)
+0031.023 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6600 files added (on-disk size: 29716.6 KB)
+0031.113 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6700 files added (on-disk size: 29716.6 KB)
+0031.205 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6800 files added (on-disk size: 29716.6 KB)
+0031.288 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 6900 files added (on-disk size: 29716.6 KB)
+0031.380 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 7000 files added (on-disk size: 29716.6 KB)
+0031.400 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (8.6 MB, 7221 files batched, 501 (7015) added so far); re-opening (prior size: 29716.6 KB)
+0032.995 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 7100 files added (on-disk size: 32452.1 KB)
+0033.090 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip.tmp: 7200 files added (on-disk size: 32452.1 KB)
+0034.510 (0) Created plugins zip (0) - 32786.1 KB in 34.1 s (961.8 KB/s) (sha1: e7b90d6cbb103825c6ec90b3c44552e3fc160723, sha256: 792561f03bbd2fc2ee0c1ac5d1b2f5de661bf20828c9c93dfa55c3a0d69a4c89)
+0034.538 (0) Beginning creation of dump of themes (split every: 400 MB)
+0034.832 (0) Total entities for the zip file: 61 directories, 294 files (0 skipped as non-modified), 5.2 MB
+0034.920 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0035.003 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip.tmp: 200 files added (on-disk size: 0 KB)
+0035.740 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip.tmp: size is now: 3.40 MB
+0035.828 (0) Created themes zip (0) - 3459.4 KB in 1.3 s (2717.3 KB/s) (sha1: d2b41478971f2ecbaa4c15f35e98984f4a0d4969, sha256: a8dbe374c2c168d04aff4f002144115f906344b91a412b06b2a482b51ea46a42)
+0035.852 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots
+0035.860 (0) Looking for candidates to backup in: /home/public/wp-content/uploads
+0035.867 (0) finding files: ithemes-security: adding to list (1)
+0035.875 (0) finding files: 2018: adding to list (2)
+0035.882 (0) finding files: 2017: adding to list (3)
+0035.889 (0) finding files: elementor: adding to list (4)
+0035.898 (0) finding files: updraft: adding to list (5)
+0035.907 (0) finding files: 2019: adding to list (6)
+0035.915 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0039.190 (0) Total entities for the zip file: 34 directories, 5224 files (0 skipped as non-modified), 302.8 MB
+0039.200 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0 MB, 1 (1) files added so far); re-opening (prior size: 0 KB)
+0039.234 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 0.00 MB
+0039.347 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 100 files added (on-disk size: 5.6 KB)
+0039.449 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 200 files added (on-disk size: 5.6 KB)
+0039.541 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 300 files added (on-disk size: 5.6 KB)
+0039.623 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 400 files added (on-disk size: 5.6 KB)
+0039.705 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 500 files added (on-disk size: 5.6 KB)
+0039.715 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (19 MB, 5224 files batched, 501 (502) added so far); re-opening (prior size: 5.6 KB)
+0041.180 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 19.20 MB
+0041.273 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 600 files added (on-disk size: 19627.1 KB)
+0041.357 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 700 files added (on-disk size: 19627.1 KB)
+0041.446 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 800 files added (on-disk size: 19627.1 KB)
+0041.533 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 900 files added (on-disk size: 19627.1 KB)
+0041.628 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1000 files added (on-disk size: 19627.1 KB)
+0041.641 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (16.4 MB, 5224 files batched, 501 (1003) added so far); re-opening (prior size: 19627.1 KB)
+0043.350 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 35.70 MB
+0043.439 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1100 files added (on-disk size: 36573.4 KB)
+0043.598 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1200 files added (on-disk size: 36573.4 KB)
+0043.680 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1300 files added (on-disk size: 36573.4 KB)
+0043.757 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1400 files added (on-disk size: 36573.4 KB)
+0043.842 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1500 files added (on-disk size: 36573.4 KB)
+0043.854 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (21.8 MB, 5224 files batched, 501 (1504) added so far); re-opening (prior size: 36573.4 KB)
+0045.868 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 57.60 MB
+0045.976 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1600 files added (on-disk size: 58966.2 KB)
+0046.058 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1700 files added (on-disk size: 58966.2 KB)
+0046.135 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1800 files added (on-disk size: 58966.2 KB)
+0046.186 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 MB added on this batch (25 MB, 5224 files batched, 349 (1853) added so far); re-opening (prior size: 58966.2 KB)
+0048.353 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 82.70 MB
+0048.375 (0) A useful amount of data was added after this amount of zip processing: 2.9 s (normalised: 2.9 s, rate: 8842 KB/s)
+0048.395 (0) Performance is good - will increase the amount of data we attempt to batch (time=2.8954219818115, normalised_time=2.8952805002472, max_time=48.382545948029, data points known=1, old_max_bytes=26214400, new_max_bytes=209715200)
+0048.450 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 1900 files added (on-disk size: 84643.3 KB)
+0048.537 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2000 files added (on-disk size: 84643.3 KB)
+0048.624 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2100 files added (on-disk size: 84643.3 KB)
+0048.730 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2200 files added (on-disk size: 84643.3 KB)
+0048.838 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2300 files added (on-disk size: 84643.3 KB)
+0048.905 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (33.7 MB, 5224 files batched, 501 (2354) added so far); re-opening (prior size: 84643.3 KB)
+0052.480 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 116.50 MB
+0052.544 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2400 files added (on-disk size: 119270.8 KB)
+0052.630 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2500 files added (on-disk size: 119270.8 KB)
+0052.727 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2600 files added (on-disk size: 119270.8 KB)
+0052.810 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2700 files added (on-disk size: 119270.8 KB)
+0052.887 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2800 files added (on-disk size: 119270.8 KB)
+0052.936 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (46.9 MB, 5224 files batched, 501 (2855) added so far); re-opening (prior size: 119270.8 KB)
+0057.364 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: size is now: 163.50 MB
+0057.431 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 2900 files added (on-disk size: 167385.9 KB)
+0057.544 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3000 files added (on-disk size: 167385.9 KB)
+0057.664 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3100 files added (on-disk size: 167385.9 KB)
+0057.775 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3200 files added (on-disk size: 167385.9 KB)
+0057.877 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3300 files added (on-disk size: 167385.9 KB)
+0057.942 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (32.3 MB, 5224 files batched, 501 (3356) added so far); re-opening (prior size: 167385.9 KB)
+0062.475 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3400 files added (on-disk size: 200567.2 KB)
+0062.575 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3500 files added (on-disk size: 200567.2 KB)
+0062.688 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3600 files added (on-disk size: 200567.2 KB)
+0062.782 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3700 files added (on-disk size: 200567.2 KB)
+0062.878 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3800 files added (on-disk size: 200567.2 KB)
+0062.945 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (27.4 MB, 5224 files batched, 501 (3857) added so far); re-opening (prior size: 200567.2 KB)
+0067.546 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 3900 files added (on-disk size: 228710.5 KB)
+0067.632 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4000 files added (on-disk size: 228710.5 KB)
+0067.718 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4100 files added (on-disk size: 228710.5 KB)
+0067.805 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4200 files added (on-disk size: 228710.5 KB)
+0067.885 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4300 files added (on-disk size: 228710.5 KB)
+0067.939 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (17.2 MB, 5224 files batched, 501 (4358) added so far); re-opening (prior size: 228710.5 KB)
+0072.736 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4400 files added (on-disk size: 246408 KB)
+0072.823 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4500 files added (on-disk size: 246408 KB)
+0072.912 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4600 files added (on-disk size: 246408 KB)
+0072.999 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4700 files added (on-disk size: 246408 KB)
+0073.080 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4800 files added (on-disk size: 246408 KB)
+0073.132 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (38 MB, 5224 files batched, 501 (4859) added so far); re-opening (prior size: 246408 KB)
+0078.742 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 4900 files added (on-disk size: 285482.2 KB)
+0078.829 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 5000 files added (on-disk size: 285482.2 KB)
+0078.911 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 5100 files added (on-disk size: 285482.2 KB)
+0078.992 (0) Zip: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip.tmp: 5200 files added (on-disk size: 285482.2 KB)
+0092.308 (0) Created uploads zip (0) - 311315.4 KB in 56.4 s (5522 KB/s) (sha1: 864a760610b8ed80b0dfec55ff4e5a830a903d2d, sha256: 5b8db2b839d1b8552bb6148453f2f51f4d8b28f14bfbe545d2daf65b4761cb9a)
+0092.340 (0) Beginning backup of other directories found in the content directory (index: 0)
+0092.348 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log
+0092.356 (0) Looking for candidates to backup in: /home/public/wp-content
+0092.366 (0) finding files: upgrade: skipping: excluded by options
+0092.376 (0) finding files: themes: skipping: this is the themes directory
+0092.386 (0) finding files: index.php: adding to list (1)
+0092.394 (0) finding files: updraft: skipping: this is the updraft directory
+0092.406 (0) finding files: uploads: skipping: this is the uploads directory
+0092.415 (0) finding files: plugins: skipping: this is the plugins directory
+0092.483 (0) Total entities for the zip file: 0 directories, 1 files (0 skipped as non-modified), 0 MB
+0092.540 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-others.zip.tmp: size is now: 0.00 MB
+0092.588 (0) Created others zip (0) - 0.2 KB in 0.1 s (1.4 KB/s) (sha1: 9e3792f550123ae45e859881b4917dd3af98fe14, sha256: 31e6502dd2afc4fc05a61c68cc2a6c660d34313b07208c73e054b4badf076f16)
+0092.626 (0) Saving backup status to database (elements: 8)
+0092.641 (0) Beginning creation of database dump (WordPress DB)
+0092.661 (0) Testing potential mysqldump binary: /usr/local/bin/mysqldump
+0092.719 (0) Output: /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE='+00:00' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\nDROP TABLE IF EXISTS `wp_options`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCRE (truncated - 1231 bytes total)
+0092.728 (0) Working binary mysqldump found: /usr/local/bin/mysqldump
+0092.759 (0) Table wp_options: Total expected rows (approximate): 310
+0092.829 (0) Table wp_options: Total rows added: 313 in 0.06 seconds
+0092.842 (0) Table wp_options: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_options.table.gz - 129.9 KB)
+0092.866 (0) Table wp_users: Total expected rows (approximate): 17
+0092.878 (0) Table wp_users: Total rows added: 17 in 0.00 seconds
+0092.887 (0) Table wp_users: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_users.table.gz - 1.8 KB)
+0092.916 (0) Table wp_usermeta: Total expected rows (approximate): 424
+0092.934 (0) Table wp_usermeta: Total rows added: 424 in 0.01 seconds
+0092.944 (0) Table wp_usermeta: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_usermeta.table.gz - 6.5 KB)
+0092.968 (0) Table wp_commentmeta: Total expected rows (approximate): 0
+0092.979 (0) Table wp_commentmeta: Total rows added: 0 in 0.00 seconds
+0092.994 (0) Table wp_commentmeta: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_commentmeta.table.gz - 0.4 KB)
+0093.018 (0) Table wp_comments: Total expected rows (approximate): 2
+0093.033 (0) Table wp_comments: Total rows added: 2 in 0.01 seconds
+0093.043 (0) Table wp_comments: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_comments.table.gz - 1 KB)
+0093.075 (0) Table wp_links: Total expected rows (approximate): 0
+0093.091 (0) Table wp_links: Total rows added: 0 in 0.00 seconds
+0093.132 (0) Table wp_links: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_links.table.gz - 0.4 KB)
+0093.164 (0) Table wp_postmeta: Total expected rows (approximate): 41829
+0093.603 (0) Table wp_postmeta: binary mysqldump finished (writes: 36) in 0.43 seconds
+0093.621 (0) Table wp_postmeta: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_postmeta.table.gz - 448.4 KB)
+0093.653 (0) Table wp_posts: Total expected rows (approximate): 2163
+0094.033 (0) Table wp_posts: Total rows added: 2657 in 0.37 seconds
+0094.046 (0) Table wp_posts: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_posts.table.gz - 419.2 KB)
+0094.075 (0) Table wp_term_relationships: Total expected rows (approximate): 49
+0094.088 (0) Table wp_term_relationships: Total rows added: 49 in 0.00 seconds
+0094.113 (0) Table wp_term_relationships: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_term_relationships.table.gz - 0.5 KB)
+0094.151 (0) Table wp_term_taxonomy: Total expected rows (approximate): 21
+0094.163 (0) Table wp_term_taxonomy: Total rows added: 21 in 0.00 seconds
+0094.173 (0) Table wp_term_taxonomy: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_term_taxonomy.table.gz - 0.6 KB)
+0094.198 (0) Table wp_termmeta: Total expected rows (approximate): 0
+0094.210 (0) Table wp_termmeta: Total rows added: 0 in 0.00 seconds
+0094.222 (0) Table wp_termmeta: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_termmeta.table.gz - 0.4 KB)
+0094.248 (0) Table wp_terms: Total expected rows (approximate): 21
+0094.259 (0) Table wp_terms: Total rows added: 21 in 0.00 seconds
+0094.269 (0) Table wp_terms: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_terms.table.gz - 0.7 KB)
+0094.294 (0) Table wp_ai1ec_event_category_meta: Total expected rows (approximate): 0
+0094.305 (0) Table wp_ai1ec_event_category_meta: Total rows added: 0 in 0.00 seconds
+0094.314 (0) Table wp_ai1ec_event_category_meta: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_ai1ec_event_category_meta.table.gz - 0.3 KB)
+0094.343 (0) Table wp_ai1ec_event_instances: Total expected rows (approximate): 0
+0094.354 (0) Table wp_ai1ec_event_instances: Total rows added: 0 in 0.00 seconds
+0094.364 (0) Table wp_ai1ec_event_instances: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_ai1ec_event_instances.table.gz - 0.3 KB)
+0094.392 (0) Table wp_ai1ec_events: Total expected rows (approximate): 0
+0094.404 (0) Table wp_ai1ec_events: Total rows added: 0 in 0.00 seconds
+0094.418 (0) Table wp_ai1ec_events: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_ai1ec_events.table.gz - 0.6 KB)
+0094.449 (0) Table wp_itsec_distributed_storage: Total expected rows (approximate): 0
+0094.460 (0) Table wp_itsec_distributed_storage: Total rows added: 0 in 0.00 seconds
+0094.479 (0) Table wp_itsec_distributed_storage: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_distributed_storage.table.gz - 0.4 KB)
+0094.505 (0) Table wp_itsec_fingerprints: Total expected rows (approximate): 0
+0094.516 (0) Table wp_itsec_fingerprints: Total rows added: 0 in 0.00 seconds
+0094.527 (0) Table wp_itsec_fingerprints: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_fingerprints.table.gz - 0.4 KB)
+0094.550 (0) Table wp_itsec_geolocation_cache: Total expected rows (approximate): 0
+0094.560 (0) Table wp_itsec_geolocation_cache: Total rows added: 0 in 0.00 seconds
+0094.569 (0) Table wp_itsec_geolocation_cache: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_geolocation_cache.table.gz - 0.4 KB)
+0094.592 (0) Table wp_itsec_lockouts: Total expected rows (approximate): 9
+0094.604 (0) Table wp_itsec_lockouts: Total rows added: 9 in 0.00 seconds
+0094.619 (0) Table wp_itsec_lockouts: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_lockouts.table.gz - 0.7 KB)
+0094.656 (0) Table wp_itsec_log: Total expected rows (approximate): 0
+0094.667 (0) Table wp_itsec_log: Total rows added: 1 in 0.00 seconds
+0094.677 (0) Table wp_itsec_log: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_log.table.gz - 0.6 KB)
+0094.702 (0) Table wp_itsec_logs: Total expected rows (approximate): 929
+0094.813 (0) Table wp_itsec_logs: Total rows added: 1108 in 0.10 seconds
+0094.824 (0) Table wp_itsec_logs: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_logs.table.gz - 93.5 KB)
+0094.848 (0) Table wp_itsec_opaque_tokens: Total expected rows (approximate): 0
+0094.860 (0) Table wp_itsec_opaque_tokens: Total rows added: 0 in 0.00 seconds
+0094.869 (0) Table wp_itsec_opaque_tokens: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_opaque_tokens.table.gz - 0.3 KB)
+0094.897 (0) Table wp_itsec_temp: Total expected rows (approximate): 2
+0094.907 (0) Table wp_itsec_temp: Total rows added: 2 in 0.00 seconds
+0094.920 (0) Table wp_itsec_temp: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_temp.table.gz - 0.5 KB)
+0094.948 (0) Table wp_yoast_seo_links: Total expected rows (approximate): 148
+0094.963 (0) Table wp_yoast_seo_links: Total rows added: 148 in 0.01 seconds
+0094.973 (0) Table wp_yoast_seo_links: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_yoast_seo_links.table.gz - 2.4 KB)
+0094.997 (0) Table wp_yoast_seo_meta: Total expected rows (approximate): 3132
+0095.036 (0) Table wp_yoast_seo_meta: Total rows added: 3185 in 0.03 seconds
+0095.046 (0) Table wp_yoast_seo_meta: finishing file (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_yoast_seo_meta.table.gz - 8.4 KB)
+0095.071 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_options.table.gz (1/25): adding to final database dump
+0095.114 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_users.table.gz (2/25): adding to final database dump
+0095.131 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_usermeta.table.gz (3/25): adding to final database dump
+0095.157 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_commentmeta.table.gz (4/25): adding to final database dump
+0095.167 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_comments.table.gz (5/25): adding to final database dump
+0095.176 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_links.table.gz (6/25): adding to final database dump
+0095.186 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_postmeta.table.gz (7/25): adding to final database dump
+0095.322 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_posts.table.gz (8/25): adding to final database dump
+0095.433 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_term_relationships.table.gz (9/25): adding to final database dump
+0095.442 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_term_taxonomy.table.gz (10/25): adding to final database dump
+0095.452 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_termmeta.table.gz (11/25): adding to final database dump
+0095.461 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_terms.table.gz (12/25): adding to final database dump
+0095.474 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_ai1ec_event_category_meta.table.gz (13/25): adding to final database dump
+0095.488 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_ai1ec_event_instances.table.gz (14/25): adding to final database dump
+0095.498 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_ai1ec_events.table.gz (15/25): adding to final database dump
+0095.512 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_distributed_storage.table.gz (16/25): adding to final database dump
+0095.521 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_fingerprints.table.gz (17/25): adding to final database dump
+0095.531 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_geolocation_cache.table.gz (18/25): adding to final database dump
+0095.541 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_lockouts.table.gz (19/25): adding to final database dump
+0095.550 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_log.table.gz (20/25): adding to final database dump
+0095.560 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_logs.table.gz (21/25): adding to final database dump
+0095.607 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_opaque_tokens.table.gz (22/25): adding to final database dump
+0095.622 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_itsec_temp.table.gz (23/25): adding to final database dump
+0095.632 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_yoast_seo_links.table.gz (24/25): adding to final database dump
+0095.642 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db-table-wp_yoast_seo_meta.table.gz (25/25): adding to final database dump
+0095.657 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz: finished writing out complete database file (1104 KB)
+0095.755 (0) Total database tables backed up: 25 (backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz, size: 1140558, sha1: 16b1d25040bf95efc2ccc628552874fe14546443, sha256: f3341c06c871ec4b93137cca0b52a0f3b03f98d221493542bf576e1a3d846d0f)
+0095.796 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip: plugins: This file has not yet been successfully uploaded: will queue
+0095.807 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip: themes: This file has not yet been successfully uploaded: will queue
+0095.816 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip: uploads: This file has not yet been successfully uploaded: will queue
+0095.823 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-others.zip: others: This file has not yet been successfully uploaded: will queue
+0095.831 (0) backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz: db: This file has not yet been successfully uploaded: will queue
+0095.839 (0) Saving backup history. Total backup size: 340.5 MB
+0095.856 (0) Requesting upload of the files that have not yet been successfully uploaded (5)
+0095.879 (0) Cloud backup selection (1/1): s3 with instance (1/1) (last)
+0095.895 (0) Beginning dispatch of backup to remote (s3) (instance identifier s-0222cf06d386bf1b483f8be5dd43fe18)
+0096.376 (0) Amazon S3: Set region: eu-west-1
+0096.385 (0) Amazon S3: upload (eu-west-1): backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip (chunks: 7) -> s3://shkettletest/backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip
+0097.025 (0) Amazon S3: chunked upload: got multipart ID: VkH7m5DNJ8h5qQdFrr5B535ECD3Nk5SRwNEsGgBXHuqLXKJy5xDqVd8hpqNnh8F4cAckDvbjwZHkpXZnCv5HUw--
+0099.104 (0) S3 chunked upload: 14.3 % uploaded (1, "66dcaa0dfb162cee97bbe7dedaf8abed")
+0100.043 (0) S3 chunked upload: 28.6 % uploaded (2, "d9c03c3cee399c27232c1aff78936ddd")
+0100.981 (0) S3 chunked upload: 42.9 % uploaded (3, "3e0361f87307b8cf96c1b0d935de6690")
+0101.910 (0) S3 chunked upload: 57.1 % uploaded (4, "f6ac06eddf86aa7c8b9fd5f15cfdb2a4")
+0102.834 (0) S3 chunked upload: 71.4 % uploaded (5, "cba28d06bf6194ae9fd112ed48ad444d")
+0103.756 (0) S3 chunked upload: 85.7 % uploaded (6, "ff0afa80f02a0e9e7ca1a8b506247d48")
+0104.325 (0) S3 chunked upload: 100 % uploaded (7, "717f7ac9a23608576aa775f69f84d40c")
+0104.344 (0) Amazon S3: upload: all chunks uploaded; will now instruct S3 to re-assemble
+0104.604 (0) Amazon S3: upload (plugins0): re-assembly succeeded
+0104.616 (0) Recording as successfully uploaded: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip
+0104.633 (0) Deleting local file: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-plugins.zip: OK
+0104.641 (0) Amazon S3: upload (eu-west-1): backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip (chunks: 1) -> s3://shkettletest/backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip
+0105.190 (0) Amazon S3: regular upload: success
+0105.198 (0) Recording as successfully uploaded: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip
+0105.212 (0) Deleting local file: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-themes.zip: OK
+0105.221 (0) Amazon S3: upload (eu-west-1): backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip (chunks: 61) -> s3://shkettletest/backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip
+0105.372 (0) Amazon S3: chunked upload: got multipart ID: WcjfqB2QjakRElxqNVfvQ3F0Jay0xMIVJvmWvlrMEvUdNjjv2ggwKxHaTRPUALZVcMfw6YvHsOCd9V9y1MwPHQ--
+0107.894 (0) S3 chunked upload: 1.6 % uploaded (1, "c7b17e8cdf7a7f0555d14d98f7f08ebf")
+0109.400 (0) S3 chunked upload: 3.3 % uploaded (2, "5995bf933b73ea5117d6dd7c65da2c72")
+0111.689 (0) S3 chunked upload: 4.9 % uploaded (3, "8012375cdccb0ea956e9e163b9b5bead")
+0112.658 (0) S3 chunked upload: 6.6 % uploaded (4, "212aace5b208ed98e0f7b323931246ca")
+0113.637 (0) S3 chunked upload: 8.2 % uploaded (5, "a3ce156d98084072af45a68563bdfaab")
+0114.595 (0) S3 chunked upload: 9.8 % uploaded (6, "293c655dde9cac716d94b59c3c815257")
+0115.561 (0) S3 chunked upload: 11.5 % uploaded (7, "91f9bb1024cdde2b24decfbfed53de9b")
+0117.899 (0) S3 chunked upload: 13.1 % uploaded (8, "17ac81bea0f04facdd81391fc21a6f0e")
+0118.851 (0) S3 chunked upload: 14.8 % uploaded (9, "75f78dc26a49739c71ec0d19105c429b")
+0119.803 (0) S3 chunked upload: 16.4 % uploaded (10, "81da54cd53d19261def37520194c5a68")
+0120.754 (0) S3 chunked upload: 18 % uploaded (11, "5a8d1b5625f9622bcf237c56946f2b35")
+0123.073 (0) S3 chunked upload: 19.7 % uploaded (12, "fc48a15036533261058e2b6ae67bc074")
+0124.012 (0) S3 chunked upload: 21.3 % uploaded (13, "3c9f7eeebb7762feead6e57368548198")
+0124.953 (0) S3 chunked upload: 23 % uploaded (14, "902dc93e45f0c0a4d8856de5d61afba8")
+0125.942 (0) S3 chunked upload: 24.6 % uploaded (15, "ef55378ae8aebfad708fc1d69882347a")
+0126.890 (0) S3 chunked upload: 26.2 % uploaded (16, "4a1d26325d0d4f252cbb3389633a4f8b")
+0127.838 (0) S3 chunked upload: 27.9 % uploaded (17, "a9f6e907dfb986356204ecdb5b456bac")
+0128.815 (0) S3 chunked upload: 29.5 % uploaded (18, "43864d0b905b82de358b231f41789663")
+0129.761 (0) S3 chunked upload: 31.1 % uploaded (19, "8ff26c59dba7cd3f193176eaf4ecbc95")
+0130.741 (0) S3 chunked upload: 32.8 % uploaded (20, "5453652b5d2b935d5a25382f89a76062")
+0133.214 (0) S3 chunked upload: 34.4 % uploaded (21, "a16232fcdc2c99b56578e94fe9585ee8")
+0135.720 (0) S3 chunked upload: 36.1 % uploaded (22, "f63f820947e3311a8d8318138b25f6c4")
+0136.732 (0) S3 chunked upload: 37.7 % uploaded (23, "41f083f235439d017b64285e0415dd23")
+0137.687 (0) S3 chunked upload: 39.3 % uploaded (24, "11ff4f7103f85a74565eb4a3dbdd44c8")
+0138.634 (0) S3 chunked upload: 41 % uploaded (25, "4928b19da6fc54276c9b625e6cad145b")
+0141.008 (0) S3 chunked upload: 42.6 % uploaded (26, "b5a96375fd98162649322306ced4ddee")
+0143.388 (0) S3 chunked upload: 44.3 % uploaded (27, "262a403beed806accfe86c2142429fe6")
+0144.364 (0) S3 chunked upload: 45.9 % uploaded (28, "6271bd89f83bb2da26c4fd095a0c09fa")
+0145.286 (0) S3 chunked upload: 47.5 % uploaded (29, "f1529a44aa962ba66c9a7c0d03fb274c")
+0146.248 (0) S3 chunked upload: 49.2 % uploaded (30, "597373cc9e3711bce8676fd957b490be")
+0147.201 (0) S3 chunked upload: 50.8 % uploaded (31, "35331b54f12ee8d9f28c84a3a8f1cbae")
+0148.183 (0) S3 chunked upload: 52.5 % uploaded (32, "fcb4b73b15a445003225ac223ec33d62")
+0149.114 (0) S3 chunked upload: 54.1 % uploaded (33, "2387dad1ccde5d3ff4774adf2918970f")
+0150.092 (0) S3 chunked upload: 55.7 % uploaded (34, "4cde7b240cd58a0cd6a429cb99edd04a")
+0151.042 (0) S3 chunked upload: 57.4 % uploaded (35, "504fc85189f50c10012ffc90b9d3adf6")
+0151.987 (0) S3 chunked upload: 59 % uploaded (36, "0d7dc3434f5337ec004ab0ce2befc558")
+0152.947 (0) S3 chunked upload: 60.7 % uploaded (37, "775ec89cccbcab8217280a806cc07637")
+0153.871 (0) S3 chunked upload: 62.3 % uploaded (38, "dec1af9a0a2367b2b90d7488c6d48111")
+0154.790 (0) S3 chunked upload: 63.9 % uploaded (39, "49264f47da02de9b97a4424bfe422deb")
+0155.735 (0) S3 chunked upload: 65.6 % uploaded (40, "325db04348eb0eeae6c7f9a5401c4a16")
+0156.696 (0) S3 chunked upload: 67.2 % uploaded (41, "409654062f9668af973b874844f177cd")
+0157.787 (0) S3 chunked upload: 68.9 % uploaded (42, "a1b395cf0dcb07d1f0ded8badab611ba")
+0158.739 (0) S3 chunked upload: 70.5 % uploaded (43, "06bc72a863d02abbeaf831df04a07747")
+0159.661 (0) S3 chunked upload: 72.1 % uploaded (44, "7703f649c2072fd3e952ea329f0267e1")
+0160.648 (0) S3 chunked upload: 73.8 % uploaded (45, "60d8c22299a9e5776a49f5c6bd5d181d")
+0161.635 (0) S3 chunked upload: 75.4 % uploaded (46, "a04b5c249d8d322ed32a5edb76bdcf06")
+0162.551 (0) S3 chunked upload: 77 % uploaded (47, "3bdea3daa5f0e5ff54d760e0fed7278f")
+0163.489 (0) S3 chunked upload: 78.7 % uploaded (48, "ff54298e8f3d220ba87879e077b13a5b")
+0164.448 (0) S3 chunked upload: 80.3 % uploaded (49, "0146d4337bdbef35d9ed32fe16d11945")
+0165.418 (0) S3 chunked upload: 82 % uploaded (50, "923bde2622a218f84ad2fb28007f756c")
+0166.375 (0) S3 chunked upload: 83.6 % uploaded (51, "c8f351f1ae452a468bb0de771f038d89")
+0168.758 (0) S3 chunked upload: 85.2 % uploaded (52, "864dfcfcfce109c2cafbdc93d833f7f2")
+0169.708 (0) S3 chunked upload: 86.9 % uploaded (53, "97e6c4b49eb34dee2bd61b78bcd6c0e1")
+0170.610 (0) S3 chunked upload: 88.5 % uploaded (54, "dea3740805bfaf59f3b4e0953f55dec4")
+0171.547 (0) S3 chunked upload: 90.2 % uploaded (55, "94473c2b9ffef03549d961bba94d4b6b")
+0172.508 (0) S3 chunked upload: 91.8 % uploaded (56, "f38f4ed750e6577858522ef25e75eae7")
+0174.824 (0) S3 chunked upload: 93.4 % uploaded (57, "d260745e5b483f569d3e0aef3ce22ce5")
+0175.796 (0) S3 chunked upload: 95.1 % uploaded (58, "204517a308e421fea61e1db0048b1dff")
+0176.733 (0) S3 chunked upload: 96.7 % uploaded (59, "721bae2b92c99771c124bdd275b41448")
+0177.671 (0) S3 chunked upload: 98.4 % uploaded (60, "7555c272709aa11165d01251c467d9c5")
+0178.505 (0) S3 chunked upload: 100 % uploaded (61, "a6c6752d7f96ec196f479b6464e20db2")
+0178.527 (0) Amazon S3: upload: all chunks uploaded; will now instruct S3 to re-assemble
+0178.769 (0) Amazon S3: upload (uploads0): re-assembly succeeded
+0178.777 (0) Recording as successfully uploaded: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip
+0178.797 (0) Deleting local file: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-uploads.zip: OK
+0178.807 (0) Amazon S3: upload (eu-west-1): backup_2019-12-01-1518_The_Kettle_e386934f8f5a-others.zip (chunks: 1) -> s3://shkettletest/backup_2019-12-01-1518_The_Kettle_e386934f8f5a-others.zip
+0178.989 (0) Amazon S3: regular upload: success
+0178.997 (0) Recording as successfully uploaded: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-others.zip
+0179.014 (0) Deleting local file: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-others.zip: OK
+0179.021 (0) Amazon S3: upload (eu-west-1): backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz (chunks: 1) -> s3://shkettletest/backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz
+0179.410 (0) Amazon S3: regular upload: success
+0179.421 (0) Recording as successfully uploaded: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz
+0179.439 (0) Deleting local file: backup_2019-12-01-1518_The_Kettle_e386934f8f5a-db.gz: OK
+0179.462 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0179.471 (0) Number of backup sets in history: 2; groups (db): 1
+0179.479 (0) Examining (for databases) backup set with group_id=0, nonce=e386934f8f5a, datestamp=1575213503 (Dec 01 2019 15:18:23)
+0179.486 (0) This backup set is the backup set just made, so will not be deleted.
+0179.488 (0) Examining (for databases) backup set with group_id=0, nonce=58496d044b1a, datestamp=1516121805 (Jan 16 2018 16:56:45)
+0179.490 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0179.498 (0) Number of backup sets in history: 2; groups (files): 1
+0179.506 (0) Examining (for files) backup set with nonce=e386934f8f5a, datestamp=1575213503 (Dec 01 2019 15:18:23)
+0179.507 (0) This backup set is the backup set just made, so will not be deleted.
+0179.515 (0) This backup set is the backup set just made, so will not be deleted.
+0179.516 (0) This backup set is the backup set just made, so will not be deleted.
+0179.518 (0) This backup set is the backup set just made, so will not be deleted.
+0179.520 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0179.527 (0) Examining (for files) backup set with nonce=58496d044b1a, datestamp=1516121805 (Jan 16 2018 16:56:45)
+0179.529 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0179.531 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0179.546 (0) Resume backup (e386934f8f5a, 0): finish run
+0179.568 (0) Decremented the semaphore (fd) by 1
+0179.582 (0) Semaphore (fd) unlocked
+0179.589 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0179.610 (0) Fetching RSS news feed
+0179.920 (0) Fetched RSS news feed; result is a: SimplePie
+0180.013 (0) Sending email ('Files and database (Full backup)') report (attachments: 0, size: 0 KB) to: theco...
+0180.090 (0) The backup apparently succeeded and is now complete
