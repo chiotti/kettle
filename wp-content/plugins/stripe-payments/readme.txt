@@ -5,7 +5,7 @@ Tags: stripe, stripe payments, stripe gateway, payment, payments, button, shortc
 Requires at least: 4.7
 Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 2.0.12
+Stable tag: 2.0.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,7 @@ https://www.youtube.com/watch?v=b6owgRBTUwA
 * Ability to have custom thank you page on a per product basis.
 * Ability to customize the message on the thank you page using tags.
 * Ability to customize the price display with currency symbol.
+* Ability to use a link URL to create custom payment button for your products.
 * Option to send receipt email to your customers from Stripe for each transaction.
 * Option to collect a custom input from your customers for products (useful if you are selling products that need special instructions from the customers).
 * Stock control option. You can limit the number of quantity available for a product.
@@ -153,6 +154,34 @@ None.
 
 == Changelog ==
 
+= 2.0.16 =
+- Replaced deprecated stripe.js functions to prevent potential issues with payments.
+- Forced payment token regeneration if payment amount or currency changed.
+- Made more strings available for translation.
+- Fixed "Incomplete" subscription status when 3D Secure card is used for payments.
+- Fixed an issue with email duplication (caused by multiple execution of some code parts).
+
+= 2.0.15 =
+- Payment popup now considers "Stripe Checkout Language" settings option.
+- Made most admin interface pages responsive.
+- Added MailerLite addon to addons listing menu.
+- Fixed potential addon update checking issues on some servers.
+- Some minor bugfixes and optimizations.
+- Fixed issues with zero-cents currency amounts display and payment processing.
+
+= 2.0.14 =
+- Added "Embed Product" metabox to product edit page with available options to embed/attach payment buttons to any page or HTML element.
+- Added a new feature that allows you to use a URL to make the payment button. Tutorial https://s-plugins.com/using-a-text-link-instead-of-the-buy-now-button-shortcode/
+- Fixed payment popup issue when variable currency was set for subscription product.
+- Addons update checker library is now bundled with core plugin.
+
+= 2.0.13 =
+- Fixed malformed download URL when [accept_stripe_payment] shortcode is used with new API.
+- Added custom field validation support on payment popup.
+- Added "Prefetch Payment Popup Scripts" option to speed up payment popup display when customer clicks payment button.
+- Proper error message is now displayed if error occurs during frontend Stripe scripts init on payment popup.
+- Removed excess output when payment button is displayed.
+
 = 2.0.12 =
 - Fixed subscription payment with tax validity check.
 - Fixed subscription payment invalid tax amount displayed on checkout results page.
@@ -240,30 +269,4 @@ None.
 - You can enable the new SCA compliant checkout by going to the "Advanced Settings Menu" of the plugin then unchecking the "Enable Legacy Checkout API" checkbox.
 - By default it uses the legacy API to ensure that it is a smooth upgrade. We don't want your checkout process to be broken after the upgrade.
 
-= 1.9.25 =
-- Fixed improper frontend total amount display in some circumstances.
-- Fixed total amount was displayed instead of item price in some circumstances.
-- Fixed issues that could lead to "button key mismatch" error when [accept_stripe_payment] shortcode is used.
-- Paragraphs are automatically added to product description when needed.
-
-= 1.9.24 =
-- Added {item_url} email tag support.
-- Fixed issue with the_content filter usage in product shortcode output that could cause some content duplication.
-- Added checkout_lang shortcode parameter which sets checkout popup language for a product.
-
-= 1.9.23 =
-- PHP sessions are no longer used for security and better caching purposes.
-- Disabled nonce checking for buttons.
-- Fixed thankyou_page_url parameter was ignored for [asp_product] shortcode and by some addons.
-- Fixed item URL wasn't processed by Secure Downloads addon when some other addons are enabled.
-- Fixed frontend total amount calculation display for products with variations and custom amount enabled.
-- Custom amount validation errors no longer displayed on page load for products with variations and custom amount enabled.
-- Checkout results page no longer displays "Download links" message if there are no downloads set for variations.
-- Checkout error message is now displayed even if no [accept_stripe_payment_checkout_error] shortcode inserted on custom checkout results page.
-- Frontend amount and quantity inputs are disabled on payment form submit to prevent "Token can't be used more than once" error.
-- Fixed zero-cent currencies displaying and handling issues.
-- Product description now supports WP embeds.
-- Tweaks for better compatibility with various page builders.
-- Other minor bugfixes.
-
-Previous versions changelog available in changelog.txt file.
+Older versions changelog available in changelog.txt file.

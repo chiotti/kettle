@@ -4,10 +4,16 @@ if (vars.fatal_error) {
 	showPopup();
 	throw new Error(vars.fatal_error);
 }
-
-var stripe = Stripe(vars.stripe_key);
-var elements = stripe.elements();
-
+try {
+	var stripe = Stripe(vars.stripe_key);
+	var elements = stripe.elements({ locale: vars.data.checkout_lang });
+} catch (error) {
+	showPopup();
+	errorCont.innerHTML = error;
+	errorCont.style.display = 'block';
+	jQuery('#payment-form').hide();
+	throw new Error(error);
+}
 vars.data.temp = [];
 
 if (vars.data.amount_variable) {
@@ -40,6 +46,16 @@ if (vars.data.currency_variable) {
 		vars.currencyFormat.s = currencyInput.options[currencyInput.selectedIndex].getAttribute('data-asp-curr-sym');
 		updateAllAmounts();
 	});
+}
+
+if (vars.data.custom_field) {
+	var customFieldInput = document.getElementById('asp-custom-field');
+	var customFieldErr = document.getElementById('custom-field-error');
+	if (customFieldInput) {
+		customFieldInput.addEventListener('change', function () {
+			validate_custom_field();
+		});
+	}
 }
 
 if (vars.data.coupons_enabled) {
@@ -358,7 +374,7 @@ function calcTotal() {
 }
 
 function is_zero_cents(curr) {
-	if (vars.zeroCents.indexOf(curr) === -1) {
+	if (vars.zeroCents.indexOf(curr.toUpperCase()) === -1) {
 		return false;
 	}
 	return true;
@@ -372,6 +388,7 @@ function cents_to_amount(amount, curr) {
 }
 
 function amount_to_cents(amount, curr) {
+	amount = parseFloat(amount);
 	if (!is_zero_cents(curr)) {
 		amount = amount * 100;
 	}
@@ -436,6 +453,26 @@ function triggerEvent(el, type) {
 		e.eventType = type;
 		el.fireEvent('on' + e.eventType, e);
 	}
+}
+
+function validate_custom_field() {
+	if (!customFieldInput) {
+		return true;
+	}
+	if (vars.custom_field_validation_regex !== '') {
+		try {
+			var re = new RegExp(vars.data.custom_field_validation_regex);
+		} catch (error) {
+			showFormInputErr(vars.str.strInvalidCFValidationRegex + ' ' + vars.data.custom_field_validation_regex + '\n' + error, errorCont, customFieldInput);
+			return false;
+		}
+	}
+	if (customFieldInput.type === 'text' && customFieldInput.value && !re.test(customFieldInput.value)) {
+		showFormInputErr(vars.data.custom_field_validation_err_msg, customFieldErr, customFieldInput);
+		return false;
+	}
+	customFieldErr.style.display = 'none';
+	return true;
 }
 
 function validate_custom_quantity() {
@@ -521,6 +558,14 @@ function canProceed() {
 			return false;
 		}
 		vars.data.quantity = quantity;
+	}
+
+	if (vars.data.custom_field) {
+		var custom_field_valid = validate_custom_field();
+		if (custom_field_valid === false) {
+			event.preventDefault();
+			return false;
+		}
 	}
 
 	if (piInput.value !== '') {
@@ -634,7 +679,8 @@ function handlePayment() {
 		delete (shippingDetails.email);
 	}
 	var opts = {
-		payment_method_data: {
+		payment_method: {
+			card: card,
 			billing_details: billingDetails
 		}
 	};
@@ -651,7 +697,7 @@ function handlePayment() {
 	}
 
 	//regen cs
-	if (!vars.data.create_token && (vars.data.client_secret === '' || vars.data.amount != clientSecAmount || vars.data.currency !== clientSecCurrency)) {
+	if (vars.data.client_secret === '' || vars.data.amount !== clientSecAmount || vars.data.currency !== clientSecCurrency) {
 		var reqStr = 'action=asp_pp_req_token&amount=' + vars.data.amount + '&curr=' + vars.data.currency + '&product_id=' + vars.data.product_id;
 		reqStr = reqStr + '&quantity=' + vars.data.quantity;
 		if (vars.data.cust_id) {
@@ -737,7 +783,7 @@ function handlePayment() {
 			} else {
 				var reqStr = 'action=asp_pp_confirm_token&asp_token_id=' + result.token.id + '&product_id=' + vars.data.product_id;
 				if (vars.data.currency_variable) {
-					reqStr = reqStr + '&currency=' + data.currency;
+					reqStr = reqStr + '&currency=' + vars.data.currency;
 				}
 				if (vars.data.amount_variable) {
 					reqStr = reqStr + '&amount=' + vars.data.item_price;
@@ -800,9 +846,12 @@ function handlePayment() {
 	}
 
 	if (vars.data.do_card_setup) {
-		console.log('Doing handleCardSetup()');
-		stripe.handleCardSetup(
-			vars.data.client_secret, card, opts)
+		if (opts.shipping) {
+			opts.shipping = undefined;
+		}
+		console.log('Doing confirmCardSetup()');
+		stripe.confirmCardSetup(
+			vars.data.client_secret, opts)
 			.then(function (result) {
 				console.log(result);
 				if (result.error) {
@@ -824,9 +873,8 @@ function handlePayment() {
 			opts.save_payment_method = true;
 			opts.setup_future_usage = 'off_session';
 		}
-		console.log('Doing handleCardPayment()');
-		stripe.handleCardPayment(
-			vars.data.client_secret, card, opts)
+		console.log('Doing confirmCardPayment()');
+		stripe.confirmCardPayment(vars.data.client_secret, opts)
 			.then(function (result) {
 				console.log(result);
 				handleCardPaymentResult(result);

@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.12
+Stable tag: 4.9.13
 Tested up to: 5.3
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -22,7 +22,7 @@ Just getting started? Read through the [New User Primer](http://m.tri.be/2d) to 
 
 Looking for additional functionality including recurring events, ticket sales, publicly submitted events, automatic imports, and more?
 
-<strong>[Events Calendar PRO](https://theeventscalendar.com/wordpress-black-friday-2019/?utm_source=partner&utm_medium=wordpress&utm_term=wporglisting&utm_campaign=blackfriday&utm_content=bf2019&utm_cta=text&cid=partner_wordpress_wporglisting_blackfriday_text_bf2019) and other add-ons are 40% off until Dec 2, 2019!</strong>
+<strong>Check out [Events Calendar PRO](http://m.tri.be/mj) and [other add-ons](http://m.tri.be/2a)</strong>
 
 ><strong>New Import Tool!</strong>
 >We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, ICS and Other URLs (beta).
@@ -214,6 +214,11 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.9.13] 2019-12-10 =
+
+* Tweak - Allow Event Aggregator date refinements for Eventbrite source.
+* Language - 29 new strings added, 201 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.9.12] 2019-11-20 =
 

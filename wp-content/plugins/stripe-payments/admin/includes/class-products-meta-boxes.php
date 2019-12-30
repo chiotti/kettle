@@ -27,7 +27,7 @@ class ASPProductsMetaboxes {
 		add_meta_box( 'asp_appearance_meta_box', __( 'Appearance', 'stripe-payments' ), array( $this, 'display_appearance_meta_box' ), ASPMain::$products_slug, 'normal', 'default' );
 		add_meta_box( 'asp_coupons_meta_box', __( 'Coupons Settings', 'stripe-payments' ), array( $this, 'display_coupons_meta_box' ), ASPMain::$products_slug, 'normal', 'default' );
 		add_meta_box( 'asp_custom_field_meta_box', __( 'Custom Field', 'stripe-payments' ), array( $this, 'display_custom_field_meta_box' ), ASPMain::$products_slug, 'normal', 'default' );
-		add_meta_box( 'asp_shortcode_meta_box', __( 'Shortcode', 'stripe-payments' ), array( $this, 'display_shortcode_meta_box' ), ASPMain::$products_slug, 'side', 'default' );
+		add_meta_box( 'asp_embed_meta_box', __( 'Embed Product', 'stripe-payments' ), array( $this, 'display_embed_meta_box' ), ASPMain::$products_slug, 'side', 'default' );
 
 		//check if eStore installed
 		if ( function_exists( 'wp_eMember_install' ) ) {
@@ -55,6 +55,7 @@ class ASPProductsMetaboxes {
 	public function display_metaboxes_meta_box( $post ) {
 		echo '<div id="wp-asp-product-settings-cont">';
 		echo '<div class="wp-asp-product-settings-menu">';
+		echo '<div id="wp-asp-product-settings-menu-icon"><span class="dashicons dashicons-menu"></span></div>';
 		$first = true;
 		foreach ( $this->metaboxes as $box ) {
 			echo sprintf( '<a class="nav-tab wp-asp-product-menu-nav-item%s" data-asp-nav-item="%s" href="#"><span>%s</span></a>', $first ? ' nav-tab-active' : '', $box['id'], $box['title'] );
@@ -63,7 +64,7 @@ class ASPProductsMetaboxes {
 		echo '</div>';
 		$first = true;
 		foreach ( $this->metaboxes as $box ) {
-			echo sprintf( '<div id="%s" class="wp-asp-product-tab-item" style="%s">', $box['id'], $first ? '' : 'display: none;' );
+			echo sprintf( '<div id="%s" class="wp-asp-product-tab-item%s">', $box['id'], $first ? ' wp-asp-product-tab-item-visible' : '' );
 			call_user_func( array( $box['callback'][0], $box['callback'][1] ), $post );
 			echo '</div>';
 			$first = false;
@@ -483,11 +484,33 @@ jQuery(document).ready(function($) {
 		<?php
 	}
 
-	function display_shortcode_meta_box( $post ) {
-		$current_val = get_post_meta( $post->ID, 'asp_product_button_text', true );
+	public function display_embed_meta_box( $post ) {
+		$home_url = get_home_url( null, '/' );
+
+		$embed_url = add_query_arg(
+			array(
+				'asp_action' => 'show_pp',
+				'product_id' => $post->ID,
+			),
+			$home_url
+		);
+		$css_class = sprintf( 'asp-attach-product-%d', $post->ID );
 		?>
-<input type="text" name="asp_product_shortcode" style="width: 100%;" class="asp-select-on-click" readonly value="[asp_product id=&quot;<?php echo $post->ID; ?>&quot;]">
-<p class="description"><?php _e( 'Use this shortcode to display button for your product.', 'stripe-payments' ); ?></p>
+<fieldset>
+	<legend><?php echo esc_html( __( 'Shortcode', 'stripe-payments' ) ); ?></legend>
+	<input type="text" name="asp_product_shortcode" style="width: 100%;" class="asp-select-on-click" readonly value="[asp_product id=&quot;<?php echo $post->ID; ?>&quot;]">
+	<p class="description"><?php echo esc_html( __( 'Use this shortcode to display this product.', 'stripe-payments' ) ); ?> Usage instructions <a href="https://s-plugins.com/embedding-products-post-page/" target="_blank">here</a>.</p>
+</fieldset>
+<fieldset>
+	<legend><?php echo esc_html( __( 'CSS Class', 'stripe-payments' ) ); ?></legend>
+	<input type="text" style="width: 100%;" class="asp-select-on-click" readonly value="<?php echo esc_attr( $css_class ); ?>">
+	<p class="description"><?php echo esc_html( __( 'Attach this product to any html element by adding this CSS class to it.', 'stripe-payments' ) ); ?></p>
+</fieldset>
+<fieldset>
+	<legend><?php echo esc_html( __( 'Link URL', 'stripe-payments' ) ); ?></legend>
+	<textarea class="asp-select-on-click" style="width: 100%;word-break: break-all;" rows="3" readonly><?php echo esc_html( $embed_url ); ?></textarea>
+	<p class="description"><?php echo esc_html( __( 'Use this URL to create a custom payment button using a text or image link.', 'stripe-payments' ) ); ?></p>
+</fieldset>
 		<?php
 	}
 
@@ -530,7 +553,7 @@ jQuery(document).ready(function($) {
 				$force_regen = $thumb_url === $curr_thumb ? false : true;
 				update_post_meta( $post_id, 'asp_product_thumbnail', $thumb_url );
 				//generate small 100x100 thumbnail
-				AcceptStripePayments::get_small_product_thumb( $post_id, $force_regen );
+				ASP_Utils::get_small_product_thumb( $post_id, $force_regen );
 			} else {
 				//thumbnail is removed
 				update_post_meta( $post_id, 'asp_product_thumbnail', '' );

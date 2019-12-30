@@ -20,6 +20,8 @@ class AcceptStripePaymentsShortcode {
 	protected $tplCF                  = '';
 
 	function __construct() {
+		self::$instance = $this;
+
 		$this->AcceptStripePayments = AcceptStripePayments::get_instance();
 
 		$use_old_api = $this->AcceptStripePayments->get_setting( 'use_old_checkout_api1' );
@@ -71,7 +73,7 @@ class AcceptStripePaymentsShortcode {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 
@@ -354,7 +356,7 @@ class AcceptStripePaymentsShortcode {
 		}
 
 		if ( get_post_meta( $id, 'asp_product_no_popup_thumbnail', true ) != 1 ) {
-			$item_logo = AcceptStripePayments::get_small_product_thumb( $id );
+			$item_logo = ASP_Utils::get_small_product_thumb( $id );
 		} else {
 			$item_logo = '';
 		}
